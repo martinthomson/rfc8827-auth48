@@ -1,12 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
-<?xml-stylesheet type="text/xsl" href="rfc2629.xslt" ?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="std" docName="draft-ietf-rtcweb-security-arch-20" ipr="pre5378Trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" tocInclude="true" symRefs="true" sortRefs="true" version="3">
+
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="std"
+     docName="draft-ietf-rtcweb-security-arch-20" number="0000"
+     ipr="pre5378Trust200902" obsoletes="" updates="" submissionType="IETF"
+     consensus="true" xml:lang="en" tocInclude="true" tocDepth="4" symRefs="true" sortRefs="true" version="3">
   <!-- xml2rfc v2v3 conversion 2.33.0 -->
-  <!-- Don't change this. It breaks stuff -->
   <front>
     <title abbrev="WebRTC Sec. Arch.">WebRTC Security Architecture</title>
-    <seriesInfo name="Internet-Draft" value="draft-ietf-rtcweb-security-arch-20"/>
+    <seriesInfo name="RFC" value="0000"/>
     <author fullname="Eric Rescorla" initials="E.K." surname="Rescorla">
       <organization>RTFM, Inc.</organization>
       <address>
@@ -15,15 +17,14 @@
           <city>Palo Alto</city>
           <region>CA</region>
           <code>94303</code>
-          <country>USA</country>
+          <country>United States of America</country>
         </postal>
         <phone>+1 650 678 2350</phone>
         <email>ekr@rtfm.com</email>
       </address>
     </author>
-    <date/>
-    <area>ART</area>
-    <workgroup>RTCWEB</workgroup>
+    <date month="May" year="2020"/>
+
     <abstract>
       <t>
         This document defines the security architecture for WebRTC, a protocol
@@ -38,7 +39,7 @@
       <t>
         The Real-Time Communications on the Web (RTCWEB) working group
         standardized protocols for real-time communications between Web
-        browsers, generally called "WebRTC" <xref target="I-D.ietf-rtcweb-overview" format="default"/>.
+        browsers, generally called "WebRTC" <xref target="RFCYYY1" format="default"/>.
         The major use cases for WebRTC technology are real-time audio
         and/or video calls, Web conferencing, and direct data transfer. Unlike
         most conventional real-time systems, (e.g., SIP-based <xref target="RFC3261" format="default"/> soft phones) WebRTC communications are directly
@@ -64,8 +65,7 @@
                   |           |    Media   |           |
                   |  Browser  |<---------->|  Browser  |
                   |           |            |           |
-                  +-----------+            +-----------+
-]]></artwork>
+                  +-----------+            +-----------+ ]]></artwork>
       </figure>
       <t>
         A more complicated system might allow for interdomain calling, as shown
@@ -93,26 +93,27 @@
                   |           |        Media     |           |
                   |  Browser  |<---------------->|  Browser  |
                   |           |                  |           |
-                  +-----------+                  +-----------+
-]]></artwork>
+                  +-----------+                  +-----------+ ]]></artwork>
       </figure>
       <t>
         This system presents a number of new security challenges, which are
-        analyzed in <xref target="I-D.ietf-rtcweb-security" format="default"/>.  This document
+        analyzed in <xref target="RFCYYY2" format="default"/>.  This document
         describes a security architecture for WebRTC which addresses the threats
         and requirements described in that document.
       </t>
     </section>
     <section anchor="sec-term" numbered="true" toc="default">
       <name>Terminology</name>
-      <t>
-        The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-        NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
-        "MAY", and "OPTIONAL" in this document are to be interpreted as
-        described in BCP 14 <xref target="RFC2119" format="default"/>
-        <xref target="RFC8174" format="default"/> when, and only when, they
-        appear in all capitals, as shown here.
-      </t>
+    <t>The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>",
+    "<bcp14>REQUIRED</bcp14>", "<bcp14>SHALL</bcp14>",
+    "<bcp14>SHALL NOT</bcp14>", "<bcp14>SHOULD</bcp14>",
+    "<bcp14>SHOULD NOT</bcp14>",
+    "<bcp14>RECOMMENDED</bcp14>", "<bcp14>NOT RECOMMENDED</bcp14>",
+    "<bcp14>MAY</bcp14>", and "<bcp14>OPTIONAL</bcp14>" in this document are
+    to be interpreted as described in BCP&nbsp;14 <xref target="RFC2119"/>
+    <xref target="RFC8174"/> when, and only when, they appear in all capitals,
+    as shown here.</t>
+
     </section>
     <section anchor="sec.proposal.trusthierarchy" numbered="true" toc="default">
       <name>Trust Model</name>
@@ -141,22 +142,20 @@
         <t>
           There are two major classes of authenticated entities in the system:
         </t>
-        <ul spacing="normal">
-          <li>
-              Calling services: Web sites whose origin we can verify (optimally
+        <dl newline="false" spacing="normal">
+          <dt>Calling services:</dt>
+           <dd>Web sites whose origin we can verify (optimally
               via HTTPS, but in some cases because we are on a topologically
               restricted network, such as behind a firewall, and can infer
-              authentication from firewall behavior).
-            </li>
-          <li>
-              Other users: WebRTC peers whose origin we can verify
-              cryptographically (optimally via DTLS-SRTP).
-            </li>
-        </ul>
+              authentication from firewall behavior).</dd>
+           <dt>Other users:</dt>
+            <dd>WebRTC peers whose origin we can verify
+              cryptographically (optimally via DTLS-SRTP).</dd>
+	</dl>
         <t>
           Note that merely being authenticated does not make these entities
           trusted. For instance, just because we can verify that
-          https://www.example.org/ is owned by Dr. Evil does not mean that we can
+          &lt;https://www.example.org/&gt; is owned by Dr. Evil does not mean that we can
           trust Dr. Evil to access our camera and microphone. However, it gives
           the user an opportunity to determine whether he wishes to trust
           Dr. Evil or not; after all, if he desires to contact Dr. Evil (perhaps
@@ -257,8 +256,7 @@
                   |           |<--------+  |           |
                   |   IdP1    |   |        |    IdP2   |
                   |           |   +------->|           |
-                  +-----------+            +-----------+
-]]></artwork>
+                  +-----------+            +-----------+ ]]></artwork>
       </figure>
       <t>
         <xref target="fig.proposal-federated.idp" format="default"/> shows essentially the same
@@ -296,8 +294,7 @@
         |           |<-------------------------+  |           |
         |   IdP1    |   |                         |    IdP2   |
         |           |   +------------------------>|           |
-        +-----------+                             +-----------+
-]]></artwork>
+        +-----------+                             +-----------+ ]]></artwork>
       </figure>
       <section numbered="true" toc="default">
         <name>Initial Signaling</name>
@@ -336,7 +333,7 @@
         </t>
         <t>
           In the current W3C API, once some streams have been added, Alice's
-          browser + JS generates a signaling message <xref target="I-D.ietf-rtcweb-jsep" format="default"/> containing:
+          browser + JS generates a signaling message <xref target="RFCYYY3" format="default"/> containing:
         </t>
         <ul spacing="normal">
           <li>
@@ -373,7 +370,7 @@
           assertion and so Bob's browser contacts Alice's identity provider
           (again, this is done in a generic way so the browser has no specific
           knowledge of the IdP) to verify the assertion. It is also possible
-          to have IdPs with which the browser has a specific trustrelationship,
+          to have IdPs with which the browser has a specific trust relationship,
           as described in <xref target="sec.trust-relationships" format="default"/>.
           This allows the browser
           to display a trusted element in the browser chrome indicating that a
@@ -420,8 +417,7 @@
       <section numbered="true" toc="default">
         <name>Media Consent Verification</name>
         <t>
-          As described in (<xref target="I-D.ietf-rtcweb-security" format="default"/>; Section
-          4.2) media consent verification is provided via ICE.  Thus, Alice and
+          As described in (<xref target="RFCYYY2" sectionFormat="comma" section="4.2"/>) media consent verification is provided via ICE.  Thus, Alice and
           Bob perform ICE checks with each other.  At the completion of these
           checks, they are ready to send non-ICE data.
         </t>
@@ -482,7 +478,7 @@
           specifies periodic STUN keepalives but only if media is not flowing.
           Because the consent issue is more difficult here, we require WebRTC
           implementations to periodically send keepalives.  As described in
-          Section 5.3, these keepalives MUST be based on the consent freshness
+          Section 5.3, these keepalives <bcp14>MUST</bcp14> be based on the consent freshness
           mechanism specified in <xref target="RFC7675" format="default"/>.  If a
           keepalive fails and no new ICE channels can be established, then the
           session is terminated.
@@ -495,7 +491,7 @@
         The SDP 'identity' attribute is a session-level attribute that
         is used by an endpoint to convey its identity assertion to its
         peer. The identity assertion value is encoded as Base-64, as described
-        in Section 4 of <xref target="RFC4648" format="default"/>.
+        in <xref target="RFC4648" sectionFormat="of" section="4"/>.
       </t>
       <t>
         The procedures in this section are based on the assumption
@@ -506,9 +502,9 @@
       </t>
       <t>
         The semantics of multiple 'identity' attributes within an
-        offer or answer are undefined.  Implementations SHOULD only include a
+        offer or answer are undefined.  Implementations <bcp14>SHOULD</bcp14> only include a
         single 'identity' attribute in an offer or answer and relying parties
-        MAY elect to ignore all but the first 'identity' attribute.
+        <bcp14>MAY</bcp14> elect to ignore all but the first 'identity' attribute.
       </t>
       <dl newline="false" spacing="normal">
         <dt>Name:</dt>
@@ -524,9 +520,9 @@
         <dt>Name:</dt>
         <dd>identity</dd>
       </dl>
-      <artwork type="inline" name="" align="left" alt=""><![CDATA[
-Syntax:
 
+<t>Syntax:</t>
+      <sourcecode name="abnf-1" type="abnf" ><![CDATA[
   identity-assertion        = identity-assertion-value
                               *(SP identity-extension)
   identity-assertion-value  = base64
@@ -537,20 +533,20 @@ Syntax:
 
   <ALPHA and DIGIT as defined in [RFC4566]>
   <base64 as defined in [RFC4566]>
+]]></sourcecode>
 
- Example:
+<t>Example:</t>
 
+<sourcecode name="sdp-1" type="sdp" ><![CDATA[
   a=identity:\
     eyJpZHAiOnsiZG9tYWluIjoiZXhhbXBsZS5vcmciLCJwcm90b2NvbCI6ImJvZ3Vz\
     In0sImFzc2VydGlvbiI6IntcImlkZW50aXR5XCI6XCJib2JAZXhhbXBsZS5vcmdc\
     IixcImNvbnRlbnRzXCI6XCJhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3l6XCIsXCJz\
-    aWduYXR1cmVcIjpcIjAxMDIwMzA0MDUwNlwifSJ9
+    aWduYXR1cmVcIjpcIjAxMDIwMzA0MDUwNlwifSJ9 ]]></sourcecode>
 
-  Note that long lines in the example are folded to meet the column
+  <aside><t>Note that long lines in the example are folded to meet the column
   width constraints of this document; the backslash ("\") at the end of
-  a line, the carriage return that follows, and whitespace shall be ignored.
-
-      ]]></artwork>
+  a line, the carriage return that follows, and whitespace shall be ignored.</t></aside>
       <t>
          This specification does not define any extensions for the attribute.
       </t>
@@ -577,7 +573,7 @@ Syntax:
            When an offerer sends an offer, in order to provide its
            identity assertion to the peer, it includes an 'identity' attribute in
            the offer. In addition, the offerer includes one or more SDP
-           'fingerprint' attributes.  The 'identity' attribute MUST be bound to
+           'fingerprint' attributes.  The 'identity' attribute <bcp14>MUST</bcp14> be bound to
            all the 'fingerprint' attributes in the session
            description.
           </t>
@@ -595,11 +591,11 @@ Syntax:
           <name>Processing an SDP Offer or Answer</name>
           <t>
              When an endpoint receives an offer or answer that contains an 'identity'
-             attribute, the answerer can use the the attribute information to
+             attribute, the answerer can use the attribute information to
              contact the IdP and verify the identity of the peer. If the identity
              requires a third-party IdP as described in <xref target="sec.trust-relationships" format="default"/>
              then that IdP will need to have been specifically configured. 
-             If the identity verification fails, the answerer MUST discard the
+             If the identity verification fails, the answerer <bcp14>MUST</bcp14> discard the
              offer or answer as malformed.
           </t>
         </section>
@@ -607,20 +603,19 @@ Syntax:
           <name>Modifying the Session</name>
           <t>
              When modifying a session, if the set of fingerprints is
-             unchanged, then the sender MAY send the same 'identity' attribute. In
-             this case, the established identity MUST be applied to existing DTLS
+             unchanged, then the sender <bcp14>MAY</bcp14> send the same 'identity' attribute. In
+             this case, the established identity <bcp14>MUST</bcp14> be applied to existing DTLS
              connections as well as new connections established using one of those
-             fingerprints. Note that <xref target="I-D.ietf-rtcweb-jsep" format="default"/>, Section
-             5.2.1 requires that each media section use the same set of
+             fingerprints. Note that <xref target="RFCYYY3" sectionFormat="comma" section="5.2.1"/> requires that each media section use the same set of
              fingerprints for every media section.
-             If a new identity attribute is received, then the receiver MUST
+             If a new identity attribute is received, then the receiver <bcp14>MUST</bcp14>
              apply that identity to all existing connections.
           </t>
           <t>
-             If the set of fingerprints changes, then the sender MUST
+             If the set of fingerprints changes, then the sender <bcp14>MUST</bcp14>
              either send a new 'identity' attribute or none at all.
              Because a change in fingerprints also causes a new DTLS
-             connection to be established, the receiver MUST discard
+             connection to be established, the receiver <bcp14>MUST</bcp14> discard
              all previously established identities.
           </t>
         </section>
@@ -633,7 +628,7 @@ Syntax:
         <t>
           The basic unit of permissions for WebRTC is the origin <xref target="RFC6454" format="default"/>. Because the security of the origin depends on
           being able to authenticate content from that origin, the origin can
-          only be securely established if data is transferred over HTTPS <xref target="RFC2818" format="default"/>. Thus, clients MUST treat HTTP and HTTPS origins as
+          only be securely established if data is transferred over HTTPS <xref target="RFC2818" format="default"/>. Thus, clients <bcp14>MUST</bcp14> treat HTTP and HTTPS origins as
           different permissions domains. Note: this follows directly from the
           origin security model and is stated here merely for clarity.
         </t>
@@ -644,14 +639,14 @@ Syntax:
           executed unless the user overrides the error. Any browser which
           enforces such a policy will also not permit access to WebRTC
           functionality from mixed content pages (because they never display
-          mixed content).  Browsers which allow active mixed content MUST
+          mixed content).  Browsers which allow active mixed content <bcp14>MUST</bcp14>
           nevertheless disable WebRTC functionality in mixed content settings.
         </t>
         <t>
           Note that it is possible for a page which was not mixed content to
           become mixed content during the duration of the call.  The major risk
           here is that the newly arrived insecure JS might redirect media to a
-          location controlled by the attacker.  Implementations MUST either
+          location controlled by the attacker.  Implementations <bcp14>MUST</bcp14> either
           choose to terminate the call or display a warning at that point.
         </t>
         <t>
@@ -663,8 +658,8 @@ Syntax:
       <section anchor="sec.proposal.device.permissions" numbered="true" toc="default">
         <name>Device Permissions Model</name>
         <t>
-          Implementations MUST obtain explicit user consent prior to providing
-          access to the camera and/or microphone. Implementations MUST at
+          Implementations <bcp14>MUST</bcp14> obtain explicit user consent prior to providing
+          access to the camera and/or microphone. Implementations <bcp14>MUST</bcp14> at
           minimum support the following two permissions models for HTTPS
           origins.
         </t>
@@ -678,20 +673,20 @@ Syntax:
         </ul>
         <t>
           Because HTTP origins cannot be securely established against network
-          attackers, implementations MUST refuse all permissions grants for
+          attackers, implementations <bcp14>MUST</bcp14> refuse all permissions grants for
           HTTP origins.
         </t>
         <t>
-          In addition, they SHOULD support requests for access that promise that
+          In addition, they <bcp14>SHOULD</bcp14> support requests for access that promise that
           media from this grant will be sent to a single communicating peer
-          (obviously there could be other requests for other peers), eE.g.,
+          (obviously there could be other requests for other peers), e.g.,
           "Call customerservice@example.org".  The semantics of this request are
           that the media stream from the camera and microphone will only be
           routed through a connection which has been cryptographically verified
           (through the IdP mechanism or an X.509 certificate in the DTLS-SRTP
           handshake) as being associated with the stated identity. Note that it
           is unlikely that browsers would have X.509 certificates, but servers
-          might.  Browsers servicing such requests SHOULD clearly indicate that
+          might.  Browsers servicing such requests <bcp14>SHOULD</bcp14> clearly indicate that
           identity to the user when asking for permission.  The idea behind this
           type of permissions is that a user might have a fairly narrow list of
           peers he is willing to communicate with, e.g., "my mother" rather than
@@ -701,7 +696,7 @@ Syntax:
         <dl newline="false" spacing="normal">
           <dt>API Requirement:</dt>
           <dd>
-              The API MUST provide a mechanism for the requesting JS to
+              The API <bcp14>MUST</bcp14> provide a mechanism for the requesting JS to
               relinquish the ability to see or modify the media (e.g., via
               MediaStream.record()).  Combined with secure authentication of the
               communicating peer, this allows a user to be sure that the calling
@@ -711,9 +706,9 @@ Syntax:
         <dl newline="false" spacing="normal">
           <dt>UI Requirement:</dt>
           <dd>
-              The UI MUST clearly indicate when the user's camera and microphone
-              are in use.  This indication MUST NOT be suppressable by the JS
-              and MUST clearly indicate how to terminate device access, and
+              The UI <bcp14>MUST</bcp14> clearly indicate when the user's camera and microphone
+              are in use.  This indication <bcp14>MUST NOT</bcp14> be suppressable by the JS
+              and <bcp14>MUST</bcp14> clearly indicate how to terminate device access, and
               provide a UI means to immediately stop camera/microphone input
               without the JS being able to prevent it.
             </dd>
@@ -724,7 +719,7 @@ Syntax:
               If the UI indication of camera/microphone use are displayed in the
               browser such that minimizing the browser window would hide the
               indication, or the JS creating an overlapping window would hide
-              the indication, then the browser SHOULD stop camera and microphone
+              the indication, then the browser <bcp14>SHOULD</bcp14> stop camera and microphone
               input when the indication is hidden.  [Note: this may not be
               necessary in systems that are non-windows-based but that have good
               notifications support, such as phones.]
@@ -732,35 +727,35 @@ Syntax:
         </dl>
         <ul spacing="normal">
           <li>
-              Browsers MUST NOT permit permanent screen or application sharing
+              Browsers <bcp14>MUST NOT</bcp14> permit permanent screen or application sharing
               permissions to be installed as a response to a JS request for
               permissions. Instead, they must require some other user action
               such as a permissions setting or an application install experience
               to grant permission to a site.
             </li>
           <li>
-              Browsers MUST provide a separate dialog request for
+              Browsers <bcp14>MUST</bcp14> provide a separate dialog request for
               screen/application sharing permissions even if the media request
               is made at the same time as camera and microphone.
             </li>
           <li>
-              The browser MUST indicate any windows which are currently being
-              shared in some unambiguous way. Windows which are not visible MUST
-              NOT be shared even if the application is being shared.  If the
-              screen is being shared, then that MUST be indicated.
+              The browser <bcp14>MUST</bcp14> indicate any windows which are currently being
+              shared in some unambiguous way. Windows which are not visible <bcp14>MUST
+              NOT</bcp14> be shared even if the application is being shared.  If the
+              screen is being shared, then that <bcp14>MUST</bcp14> be indicated.
             </li>
         </ul>
         <t>
-          Browsers MAY permit the formation of data channels without any direct
+          Browsers <bcp14>MAY</bcp14> permit the formation of data channels without any direct
           user approval. Because sites can always tunnel data through the
           server, further restrictions on the data channel do not provide any
           additional security.  (See <xref target="sec.proposal.communications.consent" format="default"/> for a related issue).
         </t>
         <t>
           Implementations which support some form of direct user authentication
-          SHOULD also provide a policy by which a user can authorize calls only
+          <bcp14>SHOULD</bcp14> also provide a policy by which a user can authorize calls only
           to specific communicating peers. Specifically, the implementation
-          SHOULD provide the following interfaces/controls:
+          <bcp14>SHOULD</bcp14> provide the following interfaces/controls:
         </t>
         <ul spacing="normal">
           <li>
@@ -773,7 +768,7 @@ Syntax:
             </li>
         </ul>
         <t>
-          Implementations SHOULD also provide a different user interface
+          Implementations <bcp14>SHOULD</bcp14> also provide a different user interface
           indication when calls are in progress to users whose identities are
           directly verifiable.  <xref target="sec.proposal.comsec" format="default"/> provides
           more on this.
@@ -782,21 +777,21 @@ Syntax:
       <section anchor="sec.proposal.communications.consent" numbered="true" toc="default">
         <name>Communications Consent</name>
         <t>
-          Browser client implementations of WebRTC MUST implement ICE.  Server
-          gateway implementations which operate only at public IP addresses MUST
+          Browser client implementations of WebRTC <bcp14>MUST</bcp14> implement ICE.  Server
+          gateway implementations which operate only at public IP addresses <bcp14>MUST</bcp14>
           implement either full ICE or ICE-Lite <xref target="RFC8445" format="default"/>.
         </t>
         <t>
-          Browser implementations MUST verify reachability via ICE prior to
+          Browser implementations <bcp14>MUST</bcp14> verify reachability via ICE prior to
           sending any non-ICE packets to a given destination.  Implementations
-          MUST NOT provide the ICE transaction ID to JavaScript during the
+          <bcp14>MUST NOT</bcp14> provide the ICE transaction ID to JavaScript during the
           lifetime of the transaction (i.e., during the period when the ICE
-          stack would accept a new response for that transaction).  The JS MUST
-          NOT be permitted to control the local ufrag and password, though it of
+          stack would accept a new response for that transaction).  The JS <bcp14>MUST
+          NOT</bcp14> be permitted to control the local ufrag and password, though it of
           course knows it.
         </t>
         <t> <!-- FIXME: phrasing of first sentence still awkward -->
-          While continuing consent is required, the ICE <xref target="RFC8445" format="default"/>; Section 10 keepalives use STUN Binding Indications which are
+          While continuing consent is required, the ICE <xref target="RFC8445" sectionFormat="comma" section="10"/> keepalives use STUN Binding Indications which are
           one-way and therefore not sufficient.  The current WG consensus is to
           use ICE Binding Requests for continuing consent freshness. ICE already
           requires that implementations respond to such requests, so this
@@ -818,13 +813,13 @@ Syntax:
           site to cooperate with the user to hide the user's IP address from the
           other side of the call. Hiding the user's IP address from the server
           requires some sort of explicit privacy preserving mechanism on the
-          client (e.g., Tor Browser [https://www.torproject.org/projects/torbrowser.html.en]) and
+          client (e.g., Tor Browser &lt;<eref target="https://www.torproject.org/projects/torbrowser.html.en"/>&gt;) and
           is out of scope for this specification.
         </t>
         <dl newline="false" spacing="normal">
           <dt>API Requirement:</dt>
           <dd>
-              The API MUST provide a mechanism to allow the JS to suppress ICE
+              The API <bcp14>MUST</bcp14> provide a mechanism to allow the JS to suppress ICE
               negotiation (though perhaps to allow candidate gathering) until
               the user has decided to answer the call [note: determining when
               the call has been answered is a question for the JS.]  This
@@ -836,17 +831,17 @@ Syntax:
         <dl newline="false" spacing="normal">
           <dt>API Requirement:</dt>
           <dd>
-              The API MUST provide a mechanism for the calling application JS to
+              The API <bcp14>MUST</bcp14> provide a mechanism for the calling application JS to
               indicate that only TURN candidates are to be used. This prevents
               the peer from learning one's IP address at all.  This mechanism
-              MUST also permit suppression of the related address field, since
+              <bcp14>MUST</bcp14> also permit suppression of the related address field, since
               that leaks local addresses.
             </dd>
         </dl>
         <dl newline="false" spacing="normal">
           <dt>API Requirement:</dt>
           <dd>
-              The API MUST provide a mechanism for the calling application to
+              The API <bcp14>MUST</bcp14> provide a mechanism for the calling application to
               reconfigure an existing call to add non-TURN candidates.  Taken
               together, this and the previous requirement allow ICE negotiation
               to start immediately on incoming call notification, thus reducing
@@ -871,24 +866,24 @@ Syntax:
       <section anchor="sec.proposal.comsec" numbered="true" toc="default">
         <name>Communications Security</name>
         <t>
-          Implementations MUST support SRTP <xref target="RFC3711" format="default"/>.
-          Implementations MUST support DTLS <xref target="RFC6347" format="default"/> and
+          Implementations <bcp14>MUST</bcp14> support SRTP <xref target="RFC3711" format="default"/>.
+          Implementations <bcp14>MUST</bcp14> support DTLS <xref target="RFC6347" format="default"/> and
           DTLS-SRTP <xref target="RFC5763" format="default"/><xref target="RFC5764" format="default"/> for SRTP
-          keying. Implementations MUST support SCTP over DTLS <xref target="RFC8261" format="default"/>.
+          keying. Implementations <bcp14>MUST</bcp14> support SCTP over DTLS <xref target="RFC8261" format="default"/>.
         </t>
         <t>
-          All media channels MUST be secured via SRTP and SRTCP.  Media traffic MUST NOT
-          be sent over plain (unencrypted) RTP or RTCP; that is, implementations MUST
-          NOT negotiate cipher suites with NULL encryption modes.  DTLS-SRTP
-          MUST be offered for every media channel.  WebRTC implementations MUST NOT
+          All media channels <bcp14>MUST</bcp14> be secured via SRTP and SRTCP.  Media traffic <bcp14>MUST NOT</bcp14>
+          be sent over plain (unencrypted) RTP or RTCP; that is, implementations <bcp14>MUST
+          NOT</bcp14> negotiate cipher suites with NULL encryption modes.  DTLS-SRTP
+          <bcp14>MUST</bcp14> be offered for every media channel.  WebRTC implementations <bcp14>MUST NOT</bcp14>
           offer SDP Security Descriptions <xref target="RFC4568" format="default"/> or select it if offered.
-          A SRTP MKI MUST NOT be used.
+          A SRTP MKI <bcp14>MUST NOT</bcp14> be used.
         </t>
         <t>
-          All data channels MUST be secured via DTLS.
+          All data channels <bcp14>MUST</bcp14> be secured via DTLS.
         </t>
         <t>
-         All Implementations MUST support DTLS 1.2 with the
+         All Implementations <bcp14>MUST</bcp14> support DTLS 1.2 with the
           TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 cipher suite and the
           <xref target="FIPS186" format="default">P-256 curve</xref>.
           Earlier drafts of this specification required
@@ -898,26 +893,26 @@ Syntax:
           endpoints which support only DTLS 1.2 might encounter
           interoperability issues.
           The DTLS-SRTP protection profile
-          SRTP_AES128_CM_HMAC_SHA1_80 MUST be supported for
+          SRTP_AES128_CM_HMAC_SHA1_80 <bcp14>MUST</bcp14> be supported for
           SRTP.
           Implementations
-          MUST favor cipher suites which support (Perfect Forward Secrecy) PFS
-          over non-PFS cipher suites and SHOULD favor AEAD over non-AEAD cipher suites.
+          <bcp14>MUST</bcp14> favor cipher suites which support (Perfect Forward Secrecy) PFS
+          over non-PFS cipher suites and <bcp14>SHOULD</bcp14> favor AEAD over non-AEAD cipher suites.
         </t>
         <t>
-          Implementations MUST NOT implement DTLS renegotiation and MUST reject
+          Implementations <bcp14>MUST NOT</bcp14> implement DTLS renegotiation and <bcp14>MUST</bcp14> reject
           it with a "no_renegotiation" alert if offered.</t>
         <t>
-          Endpoints MUST NOT implement TLS False Start <xref target="RFC7918" format="default"/>.</t>
+          Endpoints <bcp14>MUST NOT</bcp14> implement TLS False Start <xref target="RFC7918" format="default"/>.</t>
         <dl newline="false" spacing="normal">
           <dt>API Requirement:</dt>
           <dd>
-              The API MUST generate a new authentication key pair for every new
+              The API <bcp14>MUST</bcp14> generate a new authentication key pair for every new
               call by default.  This is intended to allow for unlinkability.
             </dd>
           <dt>API Requirement:</dt>
           <dd>
-              The API MUST provide a means to reuse a key pair for calls.  This
+              The API <bcp14>MUST</bcp14> provide a means to reuse a key pair for calls.  This
               can be used to enable key continuity-based authentication, and
               could be used to amortize key generation costs.
             </dd>
@@ -925,12 +920,12 @@ Syntax:
           <dd>
               Unless
               the user specifically configures an external key pair, different
-              key pairs MUST be used for each origin. (This avoids creating a
+              key pairs <bcp14>MUST</bcp14> be used for each origin. (This avoids creating a
               super-cookie.)
             </dd>
           <dt>API Requirement:</dt>
           <dd>
-              When DTLS-SRTP is used, the API MUST NOT permit the JS to obtain
+              When DTLS-SRTP is used, the API <bcp14>MUST NOT</bcp14> permit the JS to obtain
               the negotiated keying material. This requirement preserves the
               end-to-end security of the media.
             </dd>
@@ -938,25 +933,25 @@ Syntax:
         <dl newline="false" spacing="normal">
           <dt>UI Requirements: </dt>
           <dd>
-              A user-oriented client MUST provide an "inspector" interface which
+              A user-oriented client <bcp14>MUST</bcp14> provide an "inspector" interface which
               allows the user to determine the security characteristics of the
               media.
             </dd>
           <dt/>
           <dd>
-              The following properties SHOULD be displayed "up-front" in the
+              The following properties <bcp14>SHOULD</bcp14> be displayed "up-front" in the
               browser chrome, i.e., without requiring the user to ask for them:
             </dd>
           <dt/>
           <dd>
             <ul spacing="normal">
               <li>
-                  A client MUST provide a user interface through which a user
+                  A client <bcp14>MUST</bcp14> provide a user interface through which a user
                   may determine the security characteristics for
                   currently-displayed audio and video stream(s)
                 </li>
               <li>
-                  A client MUST provide a user interface through which a user
+                  A client <bcp14>MUST</bcp14> provide a user interface through which a user
                   may determine the security characteristics for transmissions
                   of their microphone audio and camera video.
                 </li>
@@ -964,14 +959,12 @@ Syntax:
                   If the far endpoint was directly verified, either via a
                   third-party verifiable X.509 certificate or via a Web IdP
                   mechanism (see <xref target="sec.generic.idp" format="default"/>) the "security
-                  characteristics" MUST include the verified information.  X.509
+                  characteristics" <bcp14>MUST</bcp14> include the verified information.  X.509
                   identities and Web IdP identities have similar semantics and
                   should be displayed in a similar way.
                 </li>
             </ul>
           </dd>
-          <dt/>
-          <dd/>
           <dt/>
           <dd>
               The following properties are more likely to require some
@@ -981,15 +974,15 @@ Syntax:
           <dd>
             <ul spacing="normal">
               <li>
-                  The "security characteristics" MUST indicate the cryptographic
+                  The "security characteristics" <bcp14>MUST</bcp14> indicate the cryptographic
                   algorithms in use (For example: "AES-CBC".)
                 </li>
               <li>
-                  The "security characteristics" MUST indicate whether PFS is
+                  The "security characteristics" <bcp14>MUST</bcp14> indicate whether PFS is
                   provided.
                 </li>
               <li>
-                  The "security characteristics" MUST include some mechanism to
+                  The "security characteristics" <bcp14>MUST</bcp14> include some mechanism to
                   allow an out-of-band verification of the peer, such as a
                   certificate fingerprint or a Short Authentication String (SAS).
                   These are compared by the peers to authenticate one another.
@@ -1026,7 +1019,7 @@ Syntax:
           Whatever the underlying technology, the general principle is that the
           party which is being authenticated is NOT the signaling site but
           rather the user (and their browser). Similarly, the relying party is
-          the browser and not the signaling site.  Thus, the browser MUST
+          the browser and not the signaling site.  Thus, the browser <bcp14>MUST</bcp14>
           generate the input to the IdP assertion process and
           display the results of the verification process to the user
           in a way which cannot be imitated by the calling site.
@@ -1052,14 +1045,10 @@ Syntax:
           <dd>
                 The entity which is trying to establish its identity.
               </dd>
-          <dt/>
-          <dd/>
           <dt>Identity Provider (IdP):</dt>
           <dd>
                 The entity which is vouching for the AP's identity.
               </dd>
-          <dt/>
-          <dd/>
           <dt>Relying Party (RP):</dt>
           <dd>
                 The entity which is trying to verify the AP's identity.
@@ -1094,8 +1083,6 @@ Syntax:
                 Connect (Facebook identities only make sense within the context
                 of the Facebook system).
               </dd>
-          <dt/>
-          <dd/>
           <dt>Third-Party: </dt>
           <dd>
                 IdPs which don't have control of their section of the identity
@@ -1181,8 +1168,7 @@ Syntax:
      |     | https://idp.example.org |      |   |               |
      |     +-------------------------+      |   +---------------+
      |                                      |
-     +--------------------------------------+
-]]></artwork>
+     +--------------------------------------+ ]]></artwork>
         <t>
             When the PeerConnection object wants to interact with the IdP, the
             sequence of events is as follows:
@@ -1249,7 +1235,7 @@ Syntax:
             as a JavaScript object (also known as a dictionary or hash) with a
             single <tt>fingerprint</tt> key, as shown below:
         </t>
-        <artwork name="" type="" align="left" alt=""><![CDATA[
+        <sourcecode name="json-1" type="json"><![CDATA[
   {
     "fingerprint":
       [
@@ -1258,8 +1244,7 @@ Syntax:
         { "algorithm": "sha-1",
           "digest": "74:E9:76:C8:19:...:F4:45:6B" }
       ]
-  }
-]]></artwork>
+  } ]]></sourcecode>
         <t>
             The <tt>fingerprint</tt> value is an array of
             objects.  Each object in the array contains <tt>algorithm</tt> and <tt>digest</tt> values, which correspond directly to
@@ -1288,7 +1273,7 @@ Syntax:
               encoded into a UTF-8 JSON text, then <xref target="RFC4648" format="default">Base64-encoded</xref> to produce this string.
               For example:
           </t>
-          <artwork name="" type="" align="left" alt=""><![CDATA[
+          <sourcecode name="sdp-1" type="sdp" ><![CDATA[
 v=0
 o=- 1181923068 1181923196 IN IP4 ua1.example.com
 s=example1
@@ -1304,25 +1289,24 @@ a=...
 t=0 0
 m=audio 6056 RTP/SAVP 0
 a=sendrecv
-...
+... ]]></sourcecode>
 
-  Note that long lines in the example are folded to meet the column
+  <aside><t>Note that long lines in the example are folded to meet the column
   width constraints of this document; the backslash ("\") at the end of
-  a line, the carriage return that follows, and whitespace shall be ignored.
+  a line, the carriage return that follows, and whitespace shall be ignored.</t></aside>
 
-]]></artwork>
           <t>
               The 'identity' attribute attests to all <tt>fingerprint</tt> attributes in the session
               description. It is therefore a session-level attribute.
           </t>
           <t>
               Multiple <tt>fingerprint</tt> values can be
-              used to offer alternative certificates for a peer.  The <tt>identity</tt> attribute MUST include all
+              used to offer alternative certificates for a peer.  The <tt>identity</tt> attribute <bcp14>MUST</bcp14> include all
               fingerprint values that are included in <tt>fingerprint</tt> attributes of the session
               description.
           </t>
           <t>
-              The RP browser MUST verify that the in-use certificate for a DTLS
+              The RP browser <bcp14>MUST</bcp14> verify that the in-use certificate for a DTLS
               connection is in the set of fingerprints returned from the IdP
               when verifying an assertion.
           </t>
@@ -1354,28 +1338,28 @@ a=sendrecv
                   </dd>
         </dl>
         <t>
-                Each IdP MUST serve its initial entry page (i.e., the one loaded
+                Each IdP <bcp14>MUST</bcp14> serve its initial entry page (i.e., the one loaded
                 by the IdP proxy) from a <xref target="RFC5785" format="default">well-known
                 URI</xref>.  The well-known URI for an IdP proxy is formed from
                 the following URI components:
         </t>
         <ol spacing="normal" type="1">
           <li>
-                    The scheme, "https:".  An IdP MUST be loaded using <xref target="RFC2818" format="default">HTTPS</xref>.
+                    The scheme, "https:".  An IdP <bcp14>MUST</bcp14> be loaded using <xref target="RFC2818" format="default">HTTPS</xref>.
                   </li>
           <li>
                     The <xref target="RFC3986" format="default">authority</xref>.  As noted above,
-                    the authority MAY contain a  non-default port number or
+                    the authority <bcp14>MAY</bcp14> contain a  non-default port number or
                     userinfo sub-component.  Both are removed when determining
                     if an asserted identity matches the name of the IdP.
                   </li>
           <li>
                     The path, starting with "/.well-known/idp-proxy/" and
                     appended with the IdP protocol.  Note that the separator
-                    characters '/' (%2F) and '\' (%5C) MUST NOT be permitted in
+                    characters '/' (%2F) and '\' (%5C) <bcp14>MUST NOT</bcp14> be permitted in
                     the protocol field, lest an attacker be able to direct
                     requests outside of the controlled "/.well-known/" prefix.
-                    Query and fragment values MAY be used by including '?' or
+                    Query and fragment values <bcp14>MAY</bcp14> be used by including '?' or
                     '#' characters.
                   </li>
         </ol>
@@ -1383,11 +1367,11 @@ a=sendrecv
                 For example, for the IdP "identity.example.com" and the protocol
                 "example", the URL would be:
         </t>
-        <artwork name="" type="" align="left" alt=""><![CDATA[
-  https://identity.example.com/.well-known/idp-proxy/example
-  ]]></artwork>
+
+  <ul empty="true"><li>&lt;https://identity.example.com/.well-known/idp-proxy/example&gt;</li></ul>
+
         <t>
-                The IdP MAY redirect requests to this URL, but they MUST retain
+                The IdP <bcp14>MAY</bcp14> redirect requests to this URL, but they <bcp14>MUST</bcp14> retain
                 the "https" scheme.  This changes the effective origin of the
                 IdP, but not the domain of the identities that the IdP is
                 permitted to assert and validate. I.e., the IdP is still
@@ -1425,7 +1409,7 @@ a=sendrecv
                   constructed directly from the assertion, and thus the RP can
                   directly verify the technical validity of the assertion with
                   no user interaction. Authoritative assertions need only be
-                  verifiable. Third-party assertions also MUST be verified
+                  verifiable. Third-party assertions also <bcp14>MUST</bcp14> be verified
                   against local policy, as described in <xref target="sec.id-format" format="default"/>.
           </t>
         </section>
@@ -1459,7 +1443,7 @@ a=sendrecv
         <dl newline="false" spacing="normal">
           <dt>idp:</dt>
           <dd>
-                    The domain name of an IdP and the protocol string.  This MAY
+                    The domain name of an IdP and the protocol string.  This <bcp14>MAY</bcp14>
                     identify a different IdP or protocol from the one that
                     generated the assertion.
                   </dd>
@@ -1478,7 +1462,7 @@ a=sendrecv
                 of this document.              </t>
         <figure anchor="fig.assert-ex">
           <name>Example assertion</name>
-          <artwork name="" type="" align="left" alt=""><![CDATA[
+          <sourcecode name="json-2" type="json"><![CDATA[
 {
   "idp":{
     "domain": "example.org",
@@ -1487,14 +1471,13 @@ a=sendrecv
   "assertion": "{\"identity\":\"bob@example.org\",
                  \"contents\":\"abcdefghijklmnopqrstuvwyz\",
                  \"signature\":\"010203040506\"}"
-}
-]]></artwork>
+} ]]></sourcecode>
         </figure>
         <t>
                 For use in signaling, the assertion is serialized into JSON,
                 <xref target="RFC4648" format="default">Base64-encoded</xref>, and used as the
                 value of the <tt>identity</tt> attribute.
-                IdPs SHOULD ensure that any assertions they
+                IdPs <bcp14>SHOULD</bcp14> ensure that any assertions they
                 generate cannot be interpreted in a different context. E.g.,
                 they should use a distinct format or have separate cryptographic
                 keys for assertion generation and other purposes.
@@ -1570,25 +1553,23 @@ a=sendrecv
       </t>
       <figure anchor="fig.verify-ex">
         <name>Example verification result</name>
-        <artwork name="" type="" align="left" alt=""><![CDATA[
-                  
+        <sourcecode name="json-3" type="json"><![CDATA[
 {
   "identity": "bob@example.org",
   "contents": "{\"fingerprint\":[ ... ]}"
-}
-]]></artwork>
+} ]]></sourcecode>
       </figure>
       <section anchor="sec.id-format" numbered="true" toc="default">
         <name>Identity Formats</name>
         <t>
-                  The identity provided from the IdP to the RP browser MUST
+                  The identity provided from the IdP to the RP browser <bcp14>MUST</bcp14>
                   consist of a string representing the user's identity.  This
                   string is in the form "&lt;user&gt;@&lt;domain&gt;", where <tt>user</tt> consists of any character,
-                  and domain is aninternationalized
+                  and domain is an internationalized
                   domain name <xref target="RFC5890" format="default"/> encoded as a sequence of U-labels.
         </t>
         <t>
-                  The PeerConnection API MUST check this string as follows:
+                  The PeerConnection API <bcp14>MUST</bcp14> check this string as follows:
         </t>
         <ol spacing="normal" type="1">
           <li>
@@ -1596,13 +1577,13 @@ a=sendrecv
                       name of the IdP proxy, then the assertion is valid, as the
                       IdP is authoritative for this domain.  Comparison of
                       domain names is done using the label equivalence rule
-                      defined in Section 2.3.2.4 of <xref target="RFC5890" format="default"/>.
+                      defined in <xref target="RFC5890" sectionFormat="of" section="2.3.2.4"/>.
                     </li>
           <li>
             <t>
                       If the "domain" portion of the string is not equal to the
                       domain name of the IdP proxy, then the PeerConnection
-                      object MUST reject the assertion unless both:
+                      object <bcp14>MUST</bcp14> reject the assertion unless both:
             </t>
             <ol spacing="normal" type="1">
               <li>
@@ -1618,8 +1599,8 @@ a=sendrecv
         </ol>
         <t>
                   Any "@" or "%" characters in the "user" portion of the
-                  identity MUST be escaped according to the "Percent-Encoding"
-                  rules defined in Section 2.1 of <xref target="RFC3986" format="default"/>. Characters other than "@" and "%" MUST NOT
+                  identity <bcp14>MUST</bcp14> be escaped according to the "Percent-Encoding"
+                  rules defined in <xref target="RFC3986" sectionFormat="of" section="2.1"/>. Characters other than "@" and "%" <bcp14>MUST NOT</bcp14>
                   be percent-encoded. For example, with a "user" of "user@133" and
                   a "domain" of "identity.example.com", the resulting string will
                   be encoded as "user%40133@identity.example.com".
@@ -1628,7 +1609,7 @@ a=sendrecv
                   Implementations are cautioned to take care when displaying
                   user identities containing escaped "@" characters. If such
                   characters are unescaped prior to display, implementations
-                  MUST distinguish between the domain of the IdP proxy and any
+                  <bcp14>MUST</bcp14> distinguish between the domain of the IdP proxy and any
                   domain that might be implied by the portion of the
                   "&lt;user&gt;" portion that appears after the escaped "@"
                   sign.
@@ -1638,7 +1619,7 @@ a=sendrecv
     <section anchor="sec.sec-cons" numbered="true" toc="default">
       <name>Security Considerations</name>
       <t>
-          Much of the security analysis of this problem is contained in <xref target="I-D.ietf-rtcweb-security" format="default"/> or in the discussion of the
+          Much of the security analysis of this problem is contained in <xref target="RFCYYY2" format="default"/> or in the discussion of the
           particular issues above. In order to avoid repetition, this section
           focuses on (a) residual threats that are not addressed by this
           document and (b) threats produced by failure/misbehavior of one of the
@@ -1674,7 +1655,7 @@ a=sendrecv
         </t>
         <t>
             In order to protect against malicious content JavaScript, that
-            JavaScript MUST NOT be allowed to have direct access to---or perform
+            JavaScript <bcp14>MUST NOT</bcp14> be allowed to have direct access to---or perform
             computations with---DTLS keys. For instance, if content JS were able
             to compute digital signatures, then it would be possible for content
             JS to get an identity assertion for a browser's generated key and
@@ -1708,7 +1689,7 @@ a=sendrecv
         <t>
             However, these privacy protections come at a performance cost in
             terms of using TURN relays and, in the latter case, delaying
-            ICE. Sites SHOULD make users aware of these tradeoffs.
+            ICE. Sites <bcp14>SHOULD</bcp14> make users aware of these tradeoffs.
         </t>
         <t>
             Note that the protections provided here assume a non-malicious
@@ -1717,18 +1698,18 @@ a=sendrecv
             address, they can violate the users privacy at will.  Users who wish
             privacy against the calling sites they are using must use separate
             privacy enhancing technologies such as Tor. Combined WebRTC/Tor
-            implementations SHOULD arrange to route the media as well as the
+            implementations <bcp14>SHOULD</bcp14> arrange to route the media as well as the
             signaling through Tor. Currently this will produce very suboptimal
             performance.
         </t>
         <t>
             Additionally, any identifier which persists across multiple calls is
             potentially a problem for privacy, especially for anonymous calling
-            services. Such services SHOULD instruct the browser to use separate
+            services. Such services <bcp14>SHOULD</bcp14> instruct the browser to use separate
             DTLS keys for each call and also to use TURN throughout the
             call. Otherwise, the other side will learn linkable information that
             would allow them to correlate the browser across multiple calls.
-            Additionally, browsers SHOULD implement the privacy-preserving CNAME
+            Additionally, browsers <bcp14>SHOULD</bcp14> implement the privacy-preserving CNAME
             generation mode of <xref target="RFC7022" format="default"/>.
         </t>
       </section>
@@ -1782,7 +1763,7 @@ a=sendrecv
             not be able to control the ufrag and password).
         </t>
         <t>
-            <xref target="I-D.ietf-rtcweb-rtp-usage" format="default"/> Section 13 documents a number
+            <xref target="RFCYYY4" sectionFormat="comma" section="13"/> documents a number
             of potential RTCP-based DoS attacks and countermeasures.
         </t>
         <t>
@@ -1816,7 +1797,7 @@ a=sendrecv
               attacker's origin, not the IdP's origin. Only the
               browser itself can instantiate a context that (a) is in the IdP's origin and
               (b) exposes the correct API surface. Thus, the IdP proxy on
-              the sender's side MUST ensure that it is running in the IdP's origin
+              the sender's side <bcp14>MUST</bcp14> ensure that it is running in the IdP's origin
               prior to issuing assertions.
           </t>
           <t>
@@ -1827,7 +1808,7 @@ a=sendrecv
               key, and therefore an attacker can attach their own identity
               to another party's keying material, thus making a call which
               comes from Alice appear to come from the attacker.
-              See <xref target="I-D.ietf-mmusic-sdp-uks" format="default"/> for defenses against this
+              See <xref target="RFCYYY5" format="default"/> for defenses against this
               form of attack.
           </t>
         </section>
@@ -1851,7 +1832,7 @@ a=sendrecv
               when the user has logged in with Facebook Connect and is then
               authenticating their call with a Facebook identity.  However, in
               other case, the user may not have already revealed their identity
-              to the site.  In general, IdPs SHOULD either verify that the user
+              to the site.  In general, IdPs <bcp14>SHOULD</bcp14> either verify that the user
               is willing to have their identity revealed to the site (e.g.,
               through the usual IdP permissions dialog) or arrange that the
               identity information is only available to known RPs (e.g., social
@@ -1884,10 +1865,10 @@ a=sendrecv
                 <xref target="RFC6943" format="default"/> for more on this topic). This is
                 a problem with any identifier space of this type
                 (e.g., e-mail addresses).
-                Those minting identifers should avoid mixed scripts and similar
+                Those minting identifiers should avoid mixed scripts and similar
                 confusable characters. Those presenting these identifiers to a
                 user should consider highlighting cases of mixed script usage
-                (see <xref target="RFC5890" format="default"/>, section 4.4). Other best practices are still in development.
+                (see <xref target="RFC5890" sectionFormat="comma" section="4.4"/>). Other best practices are still in development.
             </t>
           </section>
         </section>
@@ -1928,7 +1909,7 @@ a=sendrecv
       <name>IANA Considerations</name>
       <t>
           This specification defines the <tt>identity</tt>
-          SDP attribute per the procedures of Section 8.2.4 of <xref target="RFC4566" format="default"/>.  The required information for the registration is
+          SDP attribute per the procedures of <xref target="RFC4566" sectionFormat="of" section="8.2.4"/>.  The required information for the registration is
           included here:
       </t>
       <dl newline="false" spacing="normal">
@@ -1953,7 +1934,7 @@ a=sendrecv
         <dd>NORMAL.</dd>
       </dl>
       <t>
-          This section reqisters the <tt>idp-proxy</tt> well-known
+          This section registers the <tt>idp-proxy</tt> well-known
           URI from <xref target="RFC5785" format="default"/>.
       </t>
       <dl newline="false" spacing="normal">
@@ -1966,10 +1947,14 @@ a=sendrecv
     <section numbered="true" toc="default">
       <name>Acknowledgements</name>
       <t>
-        Bernard Aboba, Harald Alvestrand, Richard Barnes, Dan Druta, Cullen
-        Jennings, Hadriel Kaplan, Matthew Kaufman, Jim McEachern, Martin
-        Thomson, Magnus Westerland.  Matthew Kaufman provided the UI material in
-        <xref target="sec.proposal.comsec" format="default"/>. Christer Holmberg provided
+        <contact fullname="Bernard Aboba"/>, <contact fullname="Harald
+	Alvestrand"/>, <contact fullname="Richard Barnes"/>, <contact
+	fullname="Dan Druta"/>, <contact fullname="Cullen
+        Jennings"/>, <contact fullname="Hadriel Kaplan"/>, <contact
+	fullname="Matthew Kaufman"/>, <contact fullname="Jim McEachern"/>,
+	<contact fullname="Martin Thomson"/>, <contact fullname="Magnus
+	Westerland"/>.  <contact fullname="Matthew Kaufman"/> provided the UI material in
+        <xref target="sec.proposal.comsec" format="default"/>. <contact fullname="Christer Holmberg"/> provided
         the initial version of <xref target="sec.sdp-id-attr-oa" format="default"/>.
       </t>
     </section>
@@ -2109,463 +2094,63 @@ a=sendrecv
       <name>References</name>
       <references>
         <name>Normative References</name>
-        <reference anchor="RFC2119" target="https://www.rfc-editor.org/info/rfc2119" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2818.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3264.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3711.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3986.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4566.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4568.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5246.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5763.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5764.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5785.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5890.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6347.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6454.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7022.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7675.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7918.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8122.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8261.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8445.xml"/>
+
+<!-- draft-ietf-rtcweb-overview (RFC YYY1) -->
+        <reference anchor="RFCYYY1" target="https://www.rfc-editor.org/info/rfcYYY1">
           <front>
-            <title>Key words for use in RFCs to Indicate Requirement Levels</title>
-            <seriesInfo name="DOI" value="10.17487/RFC2119"/>
-            <seriesInfo name="RFC" value="2119"/>
-            <seriesInfo name="BCP" value="14"/>
-            <author initials="S." surname="Bradner" fullname="S. Bradner">
+            <title>Overview: Real-Time Protocols for Browser-Based
+	    Applications</title>
+            <seriesInfo name="RFC" value="YYY1"/>
+            <seriesInfo name="DOI" value="10.17487/RFCYYY1"/>
+            <author initials="H. T. " surname="Alvestrand" fullname="Harald Alvestrand">
               <organization/>
             </author>
-            <date year="1997" month="March"/>
-            <abstract>
-              <t>In many standards track documents several words are used to signify the requirements in the specification.  These words are often capitalized. This document defines these words as they should be interpreted in IETF documents.  This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements.</t>
-            </abstract>
+            <date month="May" year="2020"/>
           </front>
         </reference>
-        <reference anchor="RFC2818" target="https://www.rfc-editor.org/info/rfc2818" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2818.xml">
-          <front>
-            <title>HTTP Over TLS</title>
-            <seriesInfo name="DOI" value="10.17487/RFC2818"/>
-            <seriesInfo name="RFC" value="2818"/>
-            <author initials="E." surname="Rescorla" fullname="E. Rescorla">
-              <organization/>
-            </author>
-            <date year="2000" month="May"/>
-            <abstract>
-              <t>This memo describes how to use Transport Layer Security (TLS) to secure Hypertext Transfer Protocol (HTTP) connections over the Internet.  This memo provides information for the Internet community.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC3264" target="https://www.rfc-editor.org/info/rfc3264" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3264.xml">
-          <front>
-            <title>An Offer/Answer Model with Session Description Protocol (SDP)</title>
-            <seriesInfo name="DOI" value="10.17487/RFC3264"/>
-            <seriesInfo name="RFC" value="3264"/>
-            <author initials="J." surname="Rosenberg" fullname="J. Rosenberg">
-              <organization/>
-            </author>
-            <author initials="H." surname="Schulzrinne" fullname="H. Schulzrinne">
-              <organization/>
-            </author>
-            <date year="2002" month="June"/>
-            <abstract>
-              <t>This document defines a mechanism by which two entities can make use of the Session Description Protocol (SDP) to arrive at a common view of a multimedia session between them.  In the model, one participant offers the other a description of the desired session from their perspective, and the other participant answers with the desired session from their perspective.  This offer/answer model is most useful in unicast sessions where information from both participants is needed for the complete view of the session.  The offer/answer model is used by protocols like the Session Initiation Protocol (SIP).  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC3711" target="https://www.rfc-editor.org/info/rfc3711" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3711.xml">
-          <front>
-            <title>The Secure Real-time Transport Protocol (SRTP)</title>
-            <seriesInfo name="DOI" value="10.17487/RFC3711"/>
-            <seriesInfo name="RFC" value="3711"/>
-            <author initials="M." surname="Baugher" fullname="M. Baugher">
-              <organization/>
-            </author>
-            <author initials="D." surname="McGrew" fullname="D. McGrew">
-              <organization/>
-            </author>
-            <author initials="M." surname="Naslund" fullname="M. Naslund">
-              <organization/>
-            </author>
-            <author initials="E." surname="Carrara" fullname="E. Carrara">
-              <organization/>
-            </author>
-            <author initials="K." surname="Norrman" fullname="K. Norrman">
-              <organization/>
-            </author>
-            <date year="2004" month="March"/>
-            <abstract>
-              <t>This document describes the Secure Real-time Transport Protocol (SRTP), a profile of the Real-time Transport Protocol (RTP), which can provide confidentiality, message authentication, and replay protection to the RTP traffic and to the control traffic for RTP, the Real-time Transport Control Protocol (RTCP).   [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC3986" target="https://www.rfc-editor.org/info/rfc3986" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3986.xml">
-          <front>
-            <title>Uniform Resource Identifier (URI): Generic Syntax</title>
-            <seriesInfo name="DOI" value="10.17487/RFC3986"/>
-            <seriesInfo name="RFC" value="3986"/>
-            <seriesInfo name="STD" value="66"/>
-            <author initials="T." surname="Berners-Lee" fullname="T. Berners-Lee">
-              <organization/>
-            </author>
-            <author initials="R." surname="Fielding" fullname="R. Fielding">
-              <organization/>
-            </author>
-            <author initials="L." surname="Masinter" fullname="L. Masinter">
-              <organization/>
-            </author>
-            <date year="2005" month="January"/>
-            <abstract>
-              <t>A Uniform Resource Identifier (URI) is a compact sequence of characters that identifies an abstract or physical resource.  This specification defines the generic URI syntax and a process for resolving URI references that might be in relative form, along with guidelines and security considerations for the use of URIs on the Internet.  The URI syntax defines a grammar that is a superset of all valid URIs, allowing an implementation to parse the common components of a URI reference without knowing the scheme-specific requirements of every possible identifier.  This specification does not define a generative grammar for URIs; that task is performed by the individual specifications of each URI scheme.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC4566" target="https://www.rfc-editor.org/info/rfc4566" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4566.xml">
-          <front>
-            <title>SDP: Session Description Protocol</title>
-            <seriesInfo name="DOI" value="10.17487/RFC4566"/>
-            <seriesInfo name="RFC" value="4566"/>
-            <author initials="M." surname="Handley" fullname="M. Handley">
-              <organization/>
-            </author>
-            <author initials="V." surname="Jacobson" fullname="V. Jacobson">
-              <organization/>
-            </author>
-            <author initials="C." surname="Perkins" fullname="C. Perkins">
-              <organization/>
-            </author>
-            <date year="2006" month="July"/>
-            <abstract>
-              <t>This memo defines the Session Description Protocol (SDP).  SDP is intended for describing multimedia sessions for the purposes of session announcement, session invitation, and other forms of multimedia session initiation.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC4568" target="https://www.rfc-editor.org/info/rfc4568" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4568.xml">
-          <front>
-            <title>Session Description Protocol (SDP) Security Descriptions for Media Streams</title>
-            <seriesInfo name="DOI" value="10.17487/RFC4568"/>
-            <seriesInfo name="RFC" value="4568"/>
-            <author initials="F." surname="Andreasen" fullname="F. Andreasen">
-              <organization/>
-            </author>
-            <author initials="M." surname="Baugher" fullname="M. Baugher">
-              <organization/>
-            </author>
-            <author initials="D." surname="Wing" fullname="D. Wing">
-              <organization/>
-            </author>
-            <date year="2006" month="July"/>
-            <abstract>
-              <t>This document defines a Session Description Protocol (SDP) cryptographic attribute for unicast media streams.  The attribute describes a cryptographic key and other parameters that serve to configure security for a unicast media stream in either a single message or a roundtrip exchange.  The attribute can be used with a variety of SDP media transports, and this document defines how to use it for the Secure Real-time Transport Protocol (SRTP) unicast media streams.  The SDP crypto attribute requires the services of a data security protocol to secure the SDP message.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC4648" target="https://www.rfc-editor.org/info/rfc4648" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml">
-          <front>
-            <title>The Base16, Base32, and Base64 Data Encodings</title>
-            <seriesInfo name="DOI" value="10.17487/RFC4648"/>
-            <seriesInfo name="RFC" value="4648"/>
-            <author initials="S." surname="Josefsson" fullname="S. Josefsson">
-              <organization/>
-            </author>
-            <date year="2006" month="October"/>
-            <abstract>
-              <t>This document describes the commonly used base 64, base 32, and base 16 encoding schemes.  It also discusses the use of line-feeds in encoded data, use of padding in encoded data, use of non-alphabet characters in encoded data, use of different encoding alphabets, and canonical encodings.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC5246" target="https://www.rfc-editor.org/info/rfc5246" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5246.xml">
-          <front>
-            <title>The Transport Layer Security (TLS) Protocol Version 1.2</title>
-            <seriesInfo name="DOI" value="10.17487/RFC5246"/>
-            <seriesInfo name="RFC" value="5246"/>
-            <author initials="T." surname="Dierks" fullname="T. Dierks">
-              <organization/>
-            </author>
-            <author initials="E." surname="Rescorla" fullname="E. Rescorla">
-              <organization/>
-            </author>
-            <date year="2008" month="August"/>
-            <abstract>
-              <t>This document specifies Version 1.2 of the Transport Layer Security (TLS) protocol.  The TLS protocol provides communications security over the Internet.  The protocol allows client/server applications to communicate in a way that is designed to prevent eavesdropping, tampering, or message forgery.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC5763" target="https://www.rfc-editor.org/info/rfc5763" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5763.xml">
-          <front>
-            <title>Framework for Establishing a Secure Real-time Transport Protocol (SRTP) Security Context Using Datagram Transport Layer Security (DTLS)</title>
-            <seriesInfo name="DOI" value="10.17487/RFC5763"/>
-            <seriesInfo name="RFC" value="5763"/>
-            <author initials="J." surname="Fischl" fullname="J. Fischl">
-              <organization/>
-            </author>
-            <author initials="H." surname="Tschofenig" fullname="H. Tschofenig">
-              <organization/>
-            </author>
-            <author initials="E." surname="Rescorla" fullname="E. Rescorla">
-              <organization/>
-            </author>
-            <date year="2010" month="May"/>
-            <abstract>
-              <t>This document specifies how to use the Session Initiation Protocol (SIP) to establish a Secure Real-time Transport Protocol (SRTP) security context using the Datagram Transport Layer Security (DTLS) protocol.  It describes a mechanism of transporting a fingerprint attribute in the Session Description Protocol (SDP) that identifies the key that will be presented during the DTLS handshake.  The key exchange travels along the media path as opposed to the signaling path.  The SIP Identity mechanism can be used to protect the integrity of the fingerprint attribute from modification by intermediate proxies.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC5764" target="https://www.rfc-editor.org/info/rfc5764" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5764.xml">
-          <front>
-            <title>Datagram Transport Layer Security (DTLS) Extension to Establish Keys for the Secure Real-time Transport Protocol (SRTP)</title>
-            <seriesInfo name="DOI" value="10.17487/RFC5764"/>
-            <seriesInfo name="RFC" value="5764"/>
-            <author initials="D." surname="McGrew" fullname="D. McGrew">
-              <organization/>
-            </author>
-            <author initials="E." surname="Rescorla" fullname="E. Rescorla">
-              <organization/>
-            </author>
-            <date year="2010" month="May"/>
-            <abstract>
-              <t>This document describes a Datagram Transport Layer Security (DTLS) extension to establish keys for Secure RTP (SRTP) and Secure RTP Control Protocol (SRTCP) flows.  DTLS keying happens on the media path, independent of any out-of-band signalling channel present. [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC5785" target="https://www.rfc-editor.org/info/rfc5785" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5785.xml">
-          <front>
-            <title>Defining Well-Known Uniform Resource Identifiers (URIs)</title>
-            <seriesInfo name="DOI" value="10.17487/RFC5785"/>
-            <seriesInfo name="RFC" value="5785"/>
-            <author initials="M." surname="Nottingham" fullname="M. Nottingham">
-              <organization/>
-            </author>
-            <author initials="E." surname="Hammer-Lahav" fullname="E. Hammer-Lahav">
-              <organization/>
-            </author>
-            <date year="2010" month="April"/>
-            <abstract>
-              <t>This memo defines a path prefix for "well-known locations", "/.well-known/", in selected Uniform Resource Identifier (URI) schemes.   [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC5890" target="https://www.rfc-editor.org/info/rfc5890" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5890.xml">
-          <front>
-            <title>Internationalized Domain Names for Applications (IDNA): Definitions and Document Framework</title>
-            <seriesInfo name="DOI" value="10.17487/RFC5890"/>
-            <seriesInfo name="RFC" value="5890"/>
-            <author initials="J." surname="Klensin" fullname="J. Klensin">
-              <organization/>
-            </author>
-            <date year="2010" month="August"/>
-            <abstract>
-              <t>This document is one of a collection that, together, describe the protocol and usage context for a revision of Internationalized Domain Names for Applications (IDNA), superseding the earlier version.  It describes the document collection and provides definitions and other material that are common to the set.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC6347" target="https://www.rfc-editor.org/info/rfc6347" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6347.xml">
-          <front>
-            <title>Datagram Transport Layer Security Version 1.2</title>
-            <seriesInfo name="DOI" value="10.17487/RFC6347"/>
-            <seriesInfo name="RFC" value="6347"/>
-            <author initials="E." surname="Rescorla" fullname="E. Rescorla">
-              <organization/>
-            </author>
-            <author initials="N." surname="Modadugu" fullname="N. Modadugu">
-              <organization/>
-            </author>
-            <date year="2012" month="January"/>
-            <abstract>
-              <t>This document specifies version 1.2 of the Datagram Transport Layer Security (DTLS) protocol.  The DTLS protocol provides communications privacy for datagram protocols.  The protocol allows client/server applications to communicate in a way that is designed to prevent eavesdropping, tampering, or message forgery.  The DTLS protocol is based on the Transport Layer Security (TLS) protocol and provides equivalent security guarantees.  Datagram semantics of the underlying transport are preserved by the DTLS protocol.  This document updates DTLS 1.0 to work with TLS version 1.2.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC6454" target="https://www.rfc-editor.org/info/rfc6454" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6454.xml">
-          <front>
-            <title>The Web Origin Concept</title>
-            <seriesInfo name="DOI" value="10.17487/RFC6454"/>
-            <seriesInfo name="RFC" value="6454"/>
-            <author initials="A." surname="Barth" fullname="A. Barth">
-              <organization/>
-            </author>
-            <date year="2011" month="December"/>
-            <abstract>
-              <t>This document defines the concept of an "origin", which is often used as the scope of authority or privilege by user agents.  Typically, user agents isolate content retrieved from different origins to prevent malicious web site operators from interfering with the operation of benign web sites.  In addition to outlining the principles that underlie the concept of origin, this document details how to determine the origin of a URI and how to serialize an origin into a string.  It also defines an HTTP header field, named "Origin", that indicates which origins are associated with an HTTP request.   [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC7022" target="https://www.rfc-editor.org/info/rfc7022" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7022.xml">
-          <front>
-            <title>Guidelines for Choosing RTP Control Protocol (RTCP) Canonical Names (CNAMEs)</title>
-            <seriesInfo name="DOI" value="10.17487/RFC7022"/>
-            <seriesInfo name="RFC" value="7022"/>
-            <author initials="A." surname="Begen" fullname="A. Begen">
-              <organization/>
-            </author>
-            <author initials="C." surname="Perkins" fullname="C. Perkins">
-              <organization/>
-            </author>
-            <author initials="D." surname="Wing" fullname="D. Wing">
-              <organization/>
-            </author>
-            <author initials="E." surname="Rescorla" fullname="E. Rescorla">
-              <organization/>
-            </author>
-            <date year="2013" month="September"/>
-            <abstract>
-              <t>The RTP Control Protocol (RTCP) Canonical Name (CNAME) is a persistent transport-level identifier for an RTP endpoint.  While the Synchronization Source (SSRC) identifier of an RTP endpoint may change if a collision is detected or when the RTP application is restarted, its RTCP CNAME is meant to stay unchanged, so that RTP endpoints can be uniquely identified and associated with their RTP media streams.</t>
-              <t>For proper functionality, RTCP CNAMEs should be unique within the participants of an RTP session.  However, the existing guidelines for choosing the RTCP CNAME provided in the RTP standard (RFC 3550) are insufficient to achieve this uniqueness.  RFC 6222 was published to update those guidelines to allow endpoints to choose unique RTCP CNAMEs.  Unfortunately, later investigations showed that some parts of the new algorithms were unnecessarily complicated and/or ineffective.  This document addresses these concerns and replaces RFC 6222.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC7675" target="https://www.rfc-editor.org/info/rfc7675" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7675.xml">
-          <front>
-            <title>Session Traversal Utilities for NAT (STUN) Usage for Consent Freshness</title>
-            <seriesInfo name="DOI" value="10.17487/RFC7675"/>
-            <seriesInfo name="RFC" value="7675"/>
-            <author initials="M." surname="Perumal" fullname="M. Perumal">
-              <organization/>
-            </author>
-            <author initials="D." surname="Wing" fullname="D. Wing">
-              <organization/>
-            </author>
-            <author initials="R." surname="Ravindranath" fullname="R. Ravindranath">
-              <organization/>
-            </author>
-            <author initials="T." surname="Reddy" fullname="T. Reddy">
-              <organization/>
-            </author>
-            <author initials="M." surname="Thomson" fullname="M. Thomson">
-              <organization/>
-            </author>
-            <date year="2015" month="October"/>
-            <abstract>
-              <t>To prevent WebRTC applications, such as browsers, from launching attacks by sending traffic to unwilling victims, periodic consent to send needs to be obtained from remote endpoints.</t>
-              <t>This document describes a consent mechanism using a new Session Traversal Utilities for NAT (STUN) usage.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC7918" target="https://www.rfc-editor.org/info/rfc7918" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7918.xml">
-          <front>
-            <title>Transport Layer Security (TLS) False Start</title>
-            <seriesInfo name="DOI" value="10.17487/RFC7918"/>
-            <seriesInfo name="RFC" value="7918"/>
-            <author initials="A." surname="Langley" fullname="A. Langley">
-              <organization/>
-            </author>
-            <author initials="N." surname="Modadugu" fullname="N. Modadugu">
-              <organization/>
-            </author>
-            <author initials="B." surname="Moeller" fullname="B. Moeller">
-              <organization/>
-            </author>
-            <date year="2016" month="August"/>
-            <abstract>
-              <t>This document specifies an optional behavior of Transport Layer Security (TLS) client implementations, dubbed "False Start".  It affects only protocol timing, not on-the-wire protocol data, and can be implemented unilaterally.  A TLS False Start reduces handshake latency to one round trip.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC8174" target="https://www.rfc-editor.org/info/rfc8174" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml">
-          <front>
-            <title>Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words</title>
-            <seriesInfo name="DOI" value="10.17487/RFC8174"/>
-            <seriesInfo name="RFC" value="8174"/>
-            <seriesInfo name="BCP" value="14"/>
-            <author initials="B." surname="Leiba" fullname="B. Leiba">
-              <organization/>
-            </author>
-            <date year="2017" month="May"/>
-            <abstract>
-              <t>RFC 2119 specifies common key words that may be used in protocol  specifications.  This document aims to reduce the ambiguity by clarifying that only UPPERCASE usage of the key words have the  defined special meanings.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC8122" target="https://www.rfc-editor.org/info/rfc8122" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8122.xml">
-          <front>
-            <title>Connection-Oriented Media Transport over the Transport Layer Security (TLS) Protocol in the Session Description Protocol (SDP)</title>
-            <seriesInfo name="DOI" value="10.17487/RFC8122"/>
-            <seriesInfo name="RFC" value="8122"/>
-            <author initials="J." surname="Lennox" fullname="J. Lennox">
-              <organization/>
-            </author>
-            <author initials="C." surname="Holmberg" fullname="C. Holmberg">
-              <organization/>
-            </author>
-            <date year="2017" month="March"/>
-            <abstract>
-              <t>This document specifies how to establish secure connection-oriented media transport sessions over the Transport Layer Security (TLS) protocol using the Session Description Protocol (SDP).  It defines the SDP protocol identifier, 'TCP/TLS'.  It also defines the syntax and semantics for an SDP 'fingerprint' attribute that identifies the certificate that will be presented for the TLS session.  This mechanism allows media transport over TLS connections to be established securely, so long as the integrity of session descriptions is assured.</t>
-              <t>This document obsoletes RFC 4572 by clarifying the usage of multiple fingerprints.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC8259" target="https://www.rfc-editor.org/info/rfc8259" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml">
-          <front>
-            <title>The JavaScript Object Notation (JSON) Data Interchange Format</title>
-            <seriesInfo name="DOI" value="10.17487/RFC8259"/>
-            <seriesInfo name="RFC" value="8259"/>
-            <seriesInfo name="STD" value="90"/>
-            <author initials="T." surname="Bray" fullname="T. Bray" role="editor">
-              <organization/>
-            </author>
-            <date year="2017" month="December"/>
-            <abstract>
-              <t>JavaScript Object Notation (JSON) is a lightweight, text-based, language-independent data interchange format.  It was derived from the ECMAScript Programming Language Standard.  JSON defines a small set of formatting rules for the portable representation of structured data.</t>
-              <t>This document removes inconsistencies with other specifications of JSON, repairs specification errors, and offers experience-based interoperability guidance.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC8261" target="https://www.rfc-editor.org/info/rfc8261" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8261.xml">
-          <front>
-            <title>Datagram Transport Layer Security (DTLS) Encapsulation of SCTP Packets</title>
-            <seriesInfo name="DOI" value="10.17487/RFC8261"/>
-            <seriesInfo name="RFC" value="8261"/>
-            <author initials="M." surname="Tuexen" fullname="M. Tuexen">
-              <organization/>
-            </author>
-            <author initials="R." surname="Stewart" fullname="R. Stewart">
-              <organization/>
-            </author>
-            <author initials="R." surname="Jesup" fullname="R. Jesup">
-              <organization/>
-            </author>
-            <author initials="S." surname="Loreto" fullname="S. Loreto">
-              <organization/>
-            </author>
-            <date year="2017" month="November"/>
-            <abstract>
-              <t>The Stream Control Transmission Protocol (SCTP) is a transport protocol originally defined to run on top of the network protocols IPv4 or IPv6.  This document specifies how SCTP can be used on top of the Datagram Transport Layer Security (DTLS) protocol.  Using the encapsulation method described in this document, SCTP is unaware of the protocols being used below DTLS; hence, explicit IP addresses cannot be used in the SCTP control chunks.  As a consequence, the SCTP associations carried over DTLS can only be single-homed.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC8445" target="https://www.rfc-editor.org/info/rfc8445" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8445.xml">
-          <front>
-            <title>Interactive Connectivity Establishment (ICE): A Protocol for Network Address Translator (NAT) Traversal</title>
-            <seriesInfo name="DOI" value="10.17487/RFC8445"/>
-            <seriesInfo name="RFC" value="8445"/>
-            <author initials="A." surname="Keranen" fullname="A. Keranen">
-              <organization/>
-            </author>
-            <author initials="C." surname="Holmberg" fullname="C. Holmberg">
-              <organization/>
-            </author>
-            <author initials="J." surname="Rosenberg" fullname="J. Rosenberg">
-              <organization/>
-            </author>
-            <date year="2018" month="July"/>
-            <abstract>
-              <t>This document describes a protocol for Network Address Translator (NAT) traversal for UDP-based communication.  This protocol is called Interactive Connectivity Establishment (ICE).  ICE makes use of the Session Traversal Utilities for NAT (STUN) protocol and its extension, Traversal Using Relay NAT (TURN).</t>
-              <t>This document obsoletes RFC 5245.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="I-D.ietf-rtcweb-overview" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-rtcweb-overview.xml" target="http://www.ietf.org/internet-drafts/draft-ietf-rtcweb-overview-19.txt">
-          <front>
-            <title>Overview: Real Time Protocols for Browser-based Applications</title>
-            <seriesInfo name="Internet-Draft" value="draft-ietf-rtcweb-overview-19"/>
-            <author initials="H" surname="Alvestrand" fullname="Harald Alvestrand">
-              <organization/>
-            </author>
-            <date month="November" day="11" year="2017"/>
-            <abstract>
-              <t>This document gives an overview and context of a protocol suite intended for use with real-time applications that can be deployed in browsers - "real time communication on the Web".  It intends to serve as a starting and coordination point to make sure all the parts that are needed to achieve this goal are findable, and that the parts that belong in the Internet protocol suite are fully specified and on the right publication track.  This document is an Applicability Statement - it does not itself specify any protocol, but specifies which other specifications WebRTC compliant implementations are supposed to follow.  This document is a work item of the RTCWEB working group.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="I-D.ietf-rtcweb-security" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-rtcweb-security.xml" target="http://www.ietf.org/internet-drafts/draft-ietf-rtcweb-security-12.txt">
+
+<!-- draft-ietf-rtcweb-security (RFC YYY2) -->
+        <reference anchor="RFCYYY2" target="https://www.rfc-editor.org/info/rfcYYY2">
           <front>
             <title>Security Considerations for WebRTC</title>
-            <seriesInfo name="Internet-Draft" value="draft-ietf-rtcweb-security-12"/>
+             <seriesInfo name="RFC" value="YYY2"/>
+             <seriesInfo name="DOI" value="10.17487/RFCYYY2"/>
             <author initials="E" surname="Rescorla" fullname="Eric Rescorla">
               <organization/>
             </author>
-            <date month="July" day="5" year="2019"/>
-            <abstract>
-              <t>WebRTC is a protocol suite for use with real-time applications that can be deployed in browsers - "real time communication on the Web". This document defines the WebRTC threat model and analyzes the security threats of WebRTC in that model.</t>
-            </abstract>
+            <date month="May" year="2020"/>
           </front>
         </reference>
-        <reference anchor="I-D.ietf-rtcweb-rtp-usage" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-rtcweb-rtp-usage.xml" target="http://www.ietf.org/internet-drafts/draft-ietf-rtcweb-rtp-usage-26.txt">
+
+<!-- draft-ietf-rtcweb-rtp-usage (RFC YYY4) -->
+        <reference anchor="RFCYYY4" target="https://www.rfc-editor.org/info/rfcYYY4">
           <front>
             <title>Web Real-Time Communication (WebRTC): Media Transport and Use of RTP</title>
-            <seriesInfo name="Internet-Draft" value="draft-ietf-rtcweb-rtp-usage-26"/>
+             <seriesInfo name="RFC" value="YYY4"/>
+             <seriesInfo name="DOI" value="10.17487/RFCYYY4"/>
             <author initials="C" surname="Perkins" fullname="Colin Perkins">
               <organization/>
             </author>
@@ -2575,73 +2160,69 @@ a=sendrecv
             <author initials="J" surname="Ott" fullname="Joerg Ott">
               <organization/>
             </author>
-            <date month="March" day="17" year="2016"/>
-            <abstract>
-              <t>The Web Real-Time Communication (WebRTC) framework provides support for direct interactive rich communication using audio, video, text, collaboration, games, etc. between two peers' web-browsers.  This memo describes the media transport aspects of the WebRTC framework. It specifies how the Real-time Transport Protocol (RTP) is used in the WebRTC context, and gives requirements for which RTP features, profiles, and extensions need to be supported.</t>
-            </abstract>
+            <date month="May" year="2020"/>
           </front>
         </reference>
-        <reference anchor="I-D.ietf-mmusic-sdp-uks" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-mmusic-sdp-uks.xml" target="http://www.ietf.org/internet-drafts/draft-ietf-mmusic-sdp-uks-07.txt">
+
+<!-- draft-ietf-mmusic-sdp-uks (RFC YYY5) -->
+        <reference anchor="RFCYYY5" target="https://www.rfc-editor.org/info/rfcYYY5">
           <front>
-            <title>Unknown Key Share Attacks on uses of TLS with the Session Description Protocol (SDP)</title>
-            <seriesInfo name="Internet-Draft" value="draft-ietf-mmusic-sdp-uks-07"/>
+            <title>Unknown Key-Share Attacks on Uses of TLS with the Session
+	    Description Protocol (SDP)</title>
+             <seriesInfo name="RFC" value="YYY5"/>
+             <seriesInfo name="DOI" value="10.17487/RFCYYY5"/>
             <author initials="M" surname="Thomson" fullname="Martin Thomson">
               <organization/>
             </author>
             <author initials="E" surname="Rescorla" fullname="Eric Rescorla">
               <organization/>
             </author>
-            <date month="August" day="9" year="2019"/>
-            <abstract>
-              <t>This document describes unknown key-share attacks on the use of Datagram Transport Layer Security for the Secure Real-Time Transport Protocol (DTLS-SRTP).  Similar attacks are described on the use of DTLS-SRTP with the identity bindings used in Web Real-Time Communications (WebRTC) and SIP identity.  These attacks are difficult to mount, but they cause a victim to be mislead about the identity of a communicating peer.  Mitigation techniques are defined that implementations of RFC 8122 are encouraged to deploy.</t>
-            </abstract>
+            <date month="May" year="2020"/>
           </front>
         </reference>
-        <reference anchor="I-D.ietf-rtcweb-jsep" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-rtcweb-jsep.xml" target="http://www.ietf.org/internet-drafts/draft-ietf-rtcweb-jsep-26.txt">
+
+<!-- draft-ietf-rtcweb-jsep (RFC YYY3) -->
+        <reference anchor="RFCYYY3" target="https://www.rfc-editor.org/info/rfcYYY3">
           <front>
             <title>JavaScript Session Establishment Protocol</title>
-            <seriesInfo name="Internet-Draft" value="draft-ietf-rtcweb-jsep-26"/>
+             <seriesInfo name="RFC" value="YYY3"/>
+             <seriesInfo name="DOI" value="10.17487/RFCYYY3"/>
             <author initials="J" surname="Uberti" fullname="Justin Uberti">
               <organization/>
             </author>
             <author initials="C" surname="Jennings" fullname="Cullen Jennings">
               <organization/>
             </author>
-            <author initials="E" surname="Rescorla" fullname="Eric Rescorla">
+            <author initials="E" surname="Rescorla" fullname="Eric Rescorla" role="editor">
               <organization/>
             </author>
-            <date month="February" day="27" year="2019"/>
-            <abstract>
-              <t>This document describes the mechanisms for allowing a JavaScript application to control the signaling plane of a multimedia session via the interface specified in the W3C RTCPeerConnection API, and discusses how this relates to existing signaling protocols.</t>
-            </abstract>
+            <date month="May" year="2020"/>
           </front>
         </reference>
-        <reference anchor="webcrypto">
+
+        <reference anchor="webcrypto" target="https://www.w3.org/TR/WebCryptoAPI/">
           <front>
             <title>Web Cryptography API</title>
             <author fullname="W3C editors" surname="Dahl, Sleevi">
               <organization>W3C</organization>
             </author>
-            <date day="25" month="June" year="2013"/>
+            <date month="June" year="2013"/>
           </front>
-          <annotation>Available at
-        http://www.w3.org/TR/WebCryptoAPI/</annotation>
         </reference>
-        <reference anchor="webrtc-api">
+        <reference anchor="webrtc-api" target="https://w3c.github.io/webrtc-pc/">
           <front>
             <title>WebRTC 1.0: Real-time Communication Between Browsers</title>
             <author fullname="W3C editors" surname="Bergkvist, Burnett, Jennings, Narayanan">
               <organization>W3C</organization>
             </author>
-            <date day="4" month="October" year="2011"/>
+            <date month="October" year="2011"/>
           </front>
-          <annotation>Available at
-        http://dev.w3.org/2011/webrtc/editor/webrtc.html</annotation>
         </reference>
-        <reference anchor="FIPS186">
+        <reference anchor="FIPS186" target="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">
           <front>
             <title>Digital Signature Standard (DSS)</title>
-            <seriesInfo name="NIST PUB 186-4" value=""/>
+            <seriesInfo name="NIST PUB" value="186-4"/>
+            <seriesInfo name="DOI" value="10.6028/NIST.FIPS.186-4"/>
             <author>
               <organization>National Institute of Standards and Technology (NIST)</organization>
             </author>
@@ -2651,135 +2232,20 @@ a=sendrecv
       </references>
       <references>
         <name>Informative References</name>
-        <reference anchor="RFC7617" target="https://www.rfc-editor.org/info/rfc7617" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7617.xml">
-          <front>
-            <title>The 'Basic' HTTP Authentication Scheme</title>
-            <seriesInfo name="DOI" value="10.17487/RFC7617"/>
-            <seriesInfo name="RFC" value="7617"/>
-            <author initials="J." surname="Reschke" fullname="J. Reschke">
-              <organization/>
-            </author>
-            <date year="2015" month="September"/>
-            <abstract>
-              <t>This document defines the "Basic" Hypertext Transfer Protocol (HTTP) authentication scheme, which transmits credentials as user-id/ password pairs, encoded using Base64.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC3261" target="https://www.rfc-editor.org/info/rfc3261" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3261.xml">
-          <front>
-            <title>SIP: Session Initiation Protocol</title>
-            <seriesInfo name="DOI" value="10.17487/RFC3261"/>
-            <seriesInfo name="RFC" value="3261"/>
-            <author initials="J." surname="Rosenberg" fullname="J. Rosenberg">
-              <organization/>
-            </author>
-            <author initials="H." surname="Schulzrinne" fullname="H. Schulzrinne">
-              <organization/>
-            </author>
-            <author initials="G." surname="Camarillo" fullname="G. Camarillo">
-              <organization/>
-            </author>
-            <author initials="A." surname="Johnston" fullname="A. Johnston">
-              <organization/>
-            </author>
-            <author initials="J." surname="Peterson" fullname="J. Peterson">
-              <organization/>
-            </author>
-            <author initials="R." surname="Sparks" fullname="R. Sparks">
-              <organization/>
-            </author>
-            <author initials="M." surname="Handley" fullname="M. Handley">
-              <organization/>
-            </author>
-            <author initials="E." surname="Schooler" fullname="E. Schooler">
-              <organization/>
-            </author>
-            <date year="2002" month="June"/>
-            <abstract>
-              <t>This document describes Session Initiation Protocol (SIP), an application-layer control (signaling) protocol for creating, modifying, and terminating sessions with one or more participants.  These sessions include Internet telephone calls, multimedia distribution, and multimedia conferences.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC5705" target="https://www.rfc-editor.org/info/rfc5705" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5705.xml">
-          <front>
-            <title>Keying Material Exporters for Transport Layer Security (TLS)</title>
-            <seriesInfo name="DOI" value="10.17487/RFC5705"/>
-            <seriesInfo name="RFC" value="5705"/>
-            <author initials="E." surname="Rescorla" fullname="E. Rescorla">
-              <organization/>
-            </author>
-            <date year="2010" month="March"/>
-            <abstract>
-              <t>A number of protocols wish to leverage Transport Layer Security (TLS) to perform key establishment but then use some of the keying material for their own purposes.  This document describes a general mechanism for allowing that.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC6455" target="https://www.rfc-editor.org/info/rfc6455" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6455.xml">
-          <front>
-            <title>The WebSocket Protocol</title>
-            <seriesInfo name="DOI" value="10.17487/RFC6455"/>
-            <seriesInfo name="RFC" value="6455"/>
-            <author initials="I." surname="Fette" fullname="I. Fette">
-              <organization/>
-            </author>
-            <author initials="A." surname="Melnikov" fullname="A. Melnikov">
-              <organization/>
-            </author>
-            <date year="2011" month="December"/>
-            <abstract>
-              <t>The WebSocket Protocol enables two-way communication between a client running untrusted code in a controlled environment to a remote host that has opted-in to communications from that code.  The security model used for this is the origin-based security model commonly used by web browsers.  The protocol consists of an opening handshake followed by basic message framing, layered over TCP.  The goal of this technology is to provide a mechanism for browser-based applications that need two-way communication with servers that does not rely on opening multiple HTTP connections (e.g., using XMLHttpRequest or &lt;iframe&gt;s and long polling).  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC6265" target="https://www.rfc-editor.org/info/rfc6265" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6265.xml">
-          <front>
-            <title>HTTP State Management Mechanism</title>
-            <seriesInfo name="DOI" value="10.17487/RFC6265"/>
-            <seriesInfo name="RFC" value="6265"/>
-            <author initials="A." surname="Barth" fullname="A. Barth">
-              <organization/>
-            </author>
-            <date year="2011" month="April"/>
-            <abstract>
-              <t>This document defines the HTTP Cookie and Set-Cookie header fields. These header fields can be used by HTTP servers to store state (called cookies) at HTTP user agents, letting the servers maintain a stateful session over the mostly stateless HTTP protocol.  Although cookies have many historical infelicities that degrade their security and privacy, the Cookie and Set-Cookie header fields are widely used on the Internet.  This document obsoletes RFC 2965.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC6943" target="https://www.rfc-editor.org/info/rfc6943" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6943.xml">
-          <front>
-            <title>Issues in Identifier Comparison for Security Purposes</title>
-            <seriesInfo name="DOI" value="10.17487/RFC6943"/>
-            <seriesInfo name="RFC" value="6943"/>
-            <author initials="D." surname="Thaler" fullname="D. Thaler" role="editor">
-              <organization/>
-            </author>
-            <date year="2013" month="May"/>
-            <abstract>
-              <t>Identifiers such as hostnames, URIs, IP addresses, and email addresses are often used in security contexts to identify security principals and resources.  In such contexts, an identifier presented via some protocol is often compared using some policy to make security decisions such as whether the security principal may access the resource, what level of authentication or encryption is required, etc.  If the parties involved in a security decision use different algorithms to compare identifiers, then failure scenarios ranging from denial of service to elevation of privilege can result.  This document provides a discussion of these issues that designers should consider when defining identifiers and protocols, and when constructing architectures that use multiple protocols.</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="RFC6120" target="https://www.rfc-editor.org/info/rfc6120" xml:base="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6120.xml">
-          <front>
-            <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
-            <seriesInfo name="DOI" value="10.17487/RFC6120"/>
-            <seriesInfo name="RFC" value="6120"/>
-            <author initials="P." surname="Saint-Andre" fullname="P. Saint-Andre">
-              <organization/>
-            </author>
-            <date year="2011" month="March"/>
-            <abstract>
-              <t>The Extensible Messaging and Presence Protocol (XMPP) is an application profile of the Extensible Markup Language (XML) that enables the near-real-time exchange of structured yet extensible data between any two or more network entities.  This document defines XMPP's core protocol methods: setup and teardown of XML streams, channel encryption, authentication, error handling, and communication primitives for messaging, network availability ("presence"), and request-response interactions.  This document obsoletes RFC 3920.  [STANDARDS-TRACK]</t>
-            </abstract>
-          </front>
-        </reference>
-        <reference anchor="XmlHttpRequest" target="http://www.w3.org/TR/XMLHttpRequest/">
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7617.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3261.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5705.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6455.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6265.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6943.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6120.xml"/>
+        <reference anchor="XmlHttpRequest" target="https://www.w3.org/TR/XMLHttpRequest/">
           <front>
             <title>XMLHttpRequest Level 2</title>
             <author initials="A." surname="van Kesteren">
               <organization/>
             </author>
-            <date day="17" month="January" year="2012"/>
+            <date month="January" year="2012"/>
           </front>
         </reference>
       </references>
