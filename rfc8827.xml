@@ -2,10 +2,10 @@
 <!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="std"
-     number="8827" docName="draft-ietf-rtcweb-security-arch-20" 
+     number="8827" docName="draft-ietf-rtcweb-security-arch-20"
      ipr="pre5378Trust200902" obsoletes="" updates="" submissionType="IETF"
      consensus="true" xml:lang="en" tocInclude="true" tocDepth="4"
-     symRefs="true" sortRefs="true" version="3"> 
+     symRefs="true" sortRefs="true" version="3">
   <!-- xml2rfc v2v3 conversion 2.33.0 -->
   <front>
     <title abbrev="WebRTC Sec. Arch.">WebRTC Security Architecture</title>
@@ -39,6 +39,9 @@ Original (first occurrence):
    This document defines the security architecture for WebRTC, a
    protocol suite intended for use with real-time applications that can
    be deployed in browsers - "real time communication on the Web".
+
+ANSWER: I think that anyone reading this will be able to figure out the
+context if we do not expand it.
 -->
 
       <t>
@@ -213,7 +216,9 @@ Original:
  Fundamentally, the IdP proxy is just a piece of HTML and JS loaded by
  the browser, so nothing stops a Web attacker from creating their own
  IFRAME, loading the IdP proxy HTML/JS, and requesting a signature
- over his own keys rather than those generated in the browser. -->
+ over his own keys rather than those generated in the browser.
+
+ANSWER: Yes, please. -->
 
         </t>
       </section>
@@ -239,7 +244,10 @@ Original:
     <!- - Not layered ? - ->
 
     <section title="Overview" anchor="sec.proposal.overview">
-      <!- - TODO: Federated - -> -->
+      <!- - TODO: Federated - -> 
+
+ANSWER: Yes, or OBE.
+-->
 
       <t>
         This section describes a typical WebRTC session and shows how the
@@ -252,7 +260,7 @@ Original:
         between security (or performance) and privacy. The example shown here is
         aimed towards settings where we are more concerned about secure calling
         than about privacy, but as we shall see, there are settings where one
-        might wish to make different trade&nbhy;offs -- this architecture is still
+        might wish to make different tradeoffs -- this architecture is still
         compatible with those settings.
       </t>
       <t>
@@ -264,7 +272,7 @@ Original:
         other parties. For instance, Alice might have an account with a social
         network which she can then use to authenticate to other Web sites
         without explicitly having an account with those sites; this is a fairly
-        conventional pattern on the Web. &nbsp;<xref target="sec.trust-relationships" format="default"/> provides an overview of Identity
+        conventional pattern on the Web. <xref target="sec.trust-relationships" format="default"/> provides an overview of Identity
         Providers and the relevant terminology.  Alice and Bob might have
         relationships with different IdPs as well.
       </t>
@@ -372,7 +380,7 @@ Original:
           no identity service at all.
         </t>
         <t>
-          Alice is logged onto the calling service and decides to call Bob. &nbsp;She
+          Alice is logged onto the calling service and decides to call Bob. She
           can see from the calling service that he is online and the calling
           service presents a JS UI in the form of a button next to Bob's name
           which says "Call". Alice clicks the button, which initiates a JS
@@ -418,8 +426,8 @@ Original:
           needs to bind the fingerprint.
         </t>
         <t>
-          This message is sent to the signaling server, e.g., by XMLHttpRequest
-          <xref target="XmlHttpRequest" format="default"/> or by WebSockets
+          This message is sent to the signaling server, e.g., by fetch()
+          <xref target="fetch" format="default"/> or by WebSockets
 	  <xref target="RFC6455" format="default"/>, over TLS <xref
 	  target="RFC5246" format="default"/>.
 
@@ -430,7 +438,9 @@ RFC 8446, would you like to (1) cite and list RFC 8446 instead,
 
 Original:
  This message is sent to the signaling server, e.g., by XMLHttpRequest
- [XmlHttpRequest] or by WebSockets [RFC6455], over TLS [RFC5246]. -->
+ [XmlHttpRequest] or by WebSockets [RFC6455], over TLS [RFC5246]. 
+
+ANSWER: Cite 8446.-->
 
           The signaling server processes the message from Alice's browser,
           determines that this is a call to Bob, and sends a signaling message to
@@ -463,7 +473,7 @@ Original:
           At this point, Alice and Bob each know that the other party wants to
           have a secure call with them. Based purely on the interface provided
           by the signaling server, they know that the signaling server claims
-          that the call is from Alice to Bob. &nbsp;This level of security is provided
+          that the call is from Alice to Bob. This level of security is provided
           merely by having the fingerprint in the message and having that
           message received securely from the signaling server.  Because the far
           end sent an identity assertion along with their message, they know
@@ -476,7 +486,7 @@ Original:
         <t>
           Of course, the call works perfectly well if either Alice or Bob
           doesn't have a relationship with an IdP; they just get a lower level
-          of assurance. That is, they simply have whatever information their
+          of assurance. I.e., they simply have whatever information their
           calling site claims about the caller/callee's identity.  Moreover,
           Alice might wish to make an anonymous call through an anonymous
           calling site, in which case she would of course just not provide any
@@ -550,8 +560,8 @@ Original:
           large traffic volumes to entities which went abruptly offline. ICE
           specifies periodic Session Traversal Utilities for NAT (STUN) keepalives but only if media is not flowing.
           Because the consent issue is more difficult here, we require WebRTC
-          implementations to periodically send keepalives.  As described in
-          Section 5.3, these keepalives <bcp14>MUST</bcp14> be based on the consent freshness
+          implementations to periodically send keepalives using the
+          consent freshness
           mechanism specified in <xref target="RFC7675" format="default"/>.
 
 <!-- [rfced] Section 4.4:  This document does not have a Section 5.3.
@@ -560,7 +570,10 @@ Please let us know which section should be cited here.
 Original:
  As described in
  Section 5.3, these keepalives MUST be based on the consent freshness
- mechanism specified in [RFC7675]. -->
+ mechanism specified in [RFC7675]. 
+
+ANSWER: Fixed.
+-->
 
   If a
           keepalive fails and no new ICE channels can be established, then the
@@ -640,13 +653,13 @@ first has been tagged as <sourcecode type="abnf"> and the second as
 <sourcecode type="sdp" >. See
 <https://www.rfc-editor.org/materials/sourcecode-types.txt> for the preferred
 list of "type" attributes.  Please review and let us know if ay updates are
-needed.  
+needed.
 
 For the definitions of ALPHA and DIGIT, RFC 4566 refers to RFC 4234, which has
 been obsoleted by RFC 5234.  Should this document reference RFC 5234 for ALPHA
 and DIGIT?   Also, RFC 4566 will soon be obsoleted by RFC-to-be 8866
 <draft-ietf-mmusic-rfc4566bis-37>; should this document be updated to point to
-RFC 8866? 
+RFC 8866?
 
 Original:
 
@@ -672,7 +685,7 @@ Syntax:
     IixcImNvbnRlbnRzXCI6XCJhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3l6XCIsXCJz\
     aWduYXR1cmVcIjpcIjAxMDIwMzA0MDUwNlwifSJ9
 -->
- 
+
 <sourcecode name="sdp-1" type="sdp" ><![CDATA[
  a=identity:\
    eyJpZHAiOnsiZG9tYWluIjoiZXhhbXBsZS5vcmciLCJwcm90b2NvbCI6ImJvZ3Vz\
@@ -687,7 +700,7 @@ Syntax:
          This specification does not define any extensions for the attribute.
       </t>
       <t>
-         The identity-assertion value is a JSON encoded string 
+         The identity-assertion value is a JSON encoded string
 	 <xref target="RFC8259" format="default"/>. The JSON object
          contains two keys: "assertion" and "idp". The "assertion" key value contains
          an opaque string that is consumed by the IdP. The "idp" key value contains a
@@ -732,7 +745,7 @@ Syntax:
              attribute, the answerer can use the attribute information to
              contact the IdP and verify the identity of the peer. If the identity
              requires a third-party IdP as described in <xref target="sec.trust-relationships" format="default"/>,
-             then that IdP will need to have been specifically configured. 
+             then that IdP will need to have been specifically configured.
              If the identity verification fails, the answerer <bcp14>MUST</bcp14> discard the
              offer or answer as malformed.
           </t>
@@ -781,7 +794,7 @@ Syntax:
           nevertheless disable WebRTC functionality in mixed content settings.
         </t>
         <t>
-          Note that it is possible for a page that was not mixed content to
+          Note that it is possible for a page which was not mixed content to
           become mixed content during the duration of the call.  The major risk
           here is that the newly arrived insecure JS might redirect media to a
           location controlled by the attacker.  Implementations <bcp14>MUST</bcp14> either
@@ -789,7 +802,7 @@ Syntax:
         </t>
         <t>
           Also note that the security architecture depends on the keying material
-          not being available to move between origins.  But it is assumed that
+          not being available to move between origins.  However, it is assumed that
           the identity assertion can be passed to anyone that the page cares to.
         </t>
       </section>
@@ -896,8 +909,9 @@ Original:
           <li>
               Browsers <bcp14>MUST</bcp14> provide a separate dialog request for
               screen/application sharing permissions even if the media request
-              is made at the same time as camera and microphone.
-
+              is made at the same time as the request for camera and microphone
+              permissions.
+              
 <!-- [rfced] Section 6.2:  Please clarify the meaning of "as camera
 and microphone."
 
@@ -960,7 +974,7 @@ Original:
           course knows it.
         </t>
         <t>
-          While continuing consent is required, the ICE <xref target="RFC8445" sectionFormat="comma" section="10"/> keepalives use STUN Binding Indications which are
+          While continuing consent is required, the ICE <xref target="RFC8445" sectionFormat="comma" section="10"/> keepalives use STUN Binding Indications, which are
           one-way and therefore not sufficient.
 
 <!-- [rfced] Section 6.3:  Please advise regarding the following:
@@ -969,10 +983,16 @@ Original:
 we do see it in 8445's Section 11.  Please confirm that "Section 10"
 is correct here and will be clear to readers.
 
+ANSWER: It should be S 11.
+
 2. We found the use of "which" confusing here.  Are all STUN Binding
 Indications one-way and therefore not sufficient (in which case "STUN
 Binding Indications, which are" would be correct), or only some (in
 which case "STUN Binding Indications that are" would be correct)?
+
+ANSWER: it's non-restrictive. Added a comma.
+
+
 
 3. We found this comment, in the XML file, just prior to this
 sentence:  "FIXME: phrasing of first sentence still awkward."
@@ -981,7 +1001,10 @@ Please let us know how/if you want to fix the phrasing.
 Original:
  While continuing consent is required, the ICE [RFC8445]; Section 10
  keepalives use STUN Binding Indications which are one-way and
- therefore not sufficient. -->
+ therefore not sufficient.
+
+ANSWER: Just remove the FIXME.
+ -->
 
   The current WG consensus is to
           use ICE Binding Requests for continuing consent freshness. ICE already
@@ -1012,7 +1035,10 @@ Original:
 
 Currently:
  In general, the site will learn at
- least a user's server-reflexive address from any HTTP transaction. -->
+ least a user's server-reflexive address from any HTTP transaction. 
+
+ANSWER: OK.
+-->
 
   Rather, these requirements are intended to allow a
           site to cooperate with the user to hide the user's IP address from the
@@ -1096,14 +1122,14 @@ Currently:
           DTLS 1.0 with the cipher suite
           TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA, and at the time of this
           writing some implementations do not support DTLS 1.2;
-          endpoints that support only DTLS 1.2 might encounter
+          endpoints which support only DTLS 1.2 might encounter
           interoperability issues.
           The DTLS-SRTP protection profile
           SRTP_AES128_CM_HMAC_SHA1_80 <bcp14>MUST</bcp14> be supported for
           SRTP.
           Implementations
-          <bcp14>MUST</bcp14> favor cipher suites which support Perfect Forward Secrecy (PFS)
-          over non-PFS cipher suites and <bcp14>SHOULD</bcp14> favor
+          <bcp14>MUST</bcp14> favor cipher suites which support Forward Secrecy (FS)
+          over non-FS cipher suites and <bcp14>SHOULD</bcp14> favor
 	  Authenticated Encryption with Associated Data (AEAD) over non-AEAD cipher suites.
         </t>
         <t>
@@ -1185,7 +1211,7 @@ Currently:
                   algorithms in use (for example, "AES-CBC").
                 </li>
               <li>
-                  The "security characteristics" <bcp14>MUST</bcp14> indicate whether PFS is
+                  The "security characteristics" <bcp14>MUST</bcp14> indicate whether FS is
                   provided.
                 </li>
               <li>
@@ -1215,7 +1241,7 @@ Currently:
           Recently, a number of Web-based identity technologies (OAuth,
           Facebook Connect, etc.) have been developed. While the
           details vary, what these technologies share is that they have a
-          Web-based (i.e., HTTP/HTTPS) identity provider that attests to Alice's
+          Web-based (i.e., HTTP/HTTPS) identity provider which attests to Alice's
           identity. For instance, if Alice has an account at example.org, Alice could
           use the example.org identity provider to prove to others that Alice is
           alice@example.org.  The development of these technologies allows us to
@@ -1310,20 +1336,23 @@ Possibly:
  [RFC8224]  Peterson, J., Jennings, C., Rescorla, E., and C. Wendt,
             "Authenticated Identity Management in the Session
             Initiation Protocol (SIP)", RFC 8224, DOI 10.17487/RFC8224,
-            February 2018, <https://www.rfc-editor.org/info/rfc8224>. -->
+            February 2018, <https://www.rfc-editor.org/info/rfc8224>.
+
+ANSWER: OK
+ -->
 
               </dd>
           <dt>Third-Party:</dt>
           <dd>
                 IdPs which don't have control of their section of the identity
-                space but instead verify a user's identity via some unspecified
+                space but instead verify users' identities via some unspecified
                 mechanism and then attest to it. Because the IdP doesn't
                 actually control the namespace, RPs need to trust that the IdP
                 is correctly verifying AP identities, and there can potentially
                 be multiple IdPs attesting to the same section of the identity
                 space. Probably the best-known example of a third-party identity
                 provider is SSL/TLS certificates, where there are a large number of
-                certification authorities (CAs) all of whom can attest to any domain name.
+                certificate authorities (CAs) all of whom can attest to any domain name.
               </dd>
         </dl>
         <t>
@@ -1467,7 +1496,7 @@ Possibly:
             single "fingerprint" key, as shown below:
         </t>
 <!-- [rfced] Please review the type attribute set for each <sourcecode> and let
-us know if any updates are needed. 
+us know if any updates are needed.
 -->
         <sourcecode name="json-1" type="json"><![CDATA[
 {
@@ -1605,7 +1634,10 @@ Suggested ("reqisters" has been fixed):
 ...
  [RFC8615]  Nottingham, M., "Well-Known Uniform Resource Identifiers
             (URIs)", RFC 8615, DOI 10.17487/RFC8615, May 2019,
-            <https://www.rfc-editor.org/info/rfc8615>. -->
+            <https://www.rfc-editor.org/info/rfc8615>. 
+
+ANSWER: OK.
+-->
 
   The well-known URI for an IdP proxy is formed from
                 the following URI components:
@@ -1641,7 +1673,7 @@ Suggested ("reqisters" has been fixed):
                 The IdP <bcp14>MAY</bcp14> redirect requests to this URL, but they <bcp14>MUST</bcp14> retain
                 the "https" scheme.  This changes the effective origin of the
                 IdP, but not the domain of the identities that the IdP is
-                permitted to assert and validate. That is, the IdP is still
+                permitted to assert and validate. I.e., the IdP is still
                 regarded as authoritative for the original domain.
         </t>
         <section numbered="true" toc="default">
@@ -1684,7 +1716,7 @@ Suggested ("reqisters" has been fixed):
       <section anchor="sec.request-assert" numbered="true" toc="default">
         <name>Requesting Assertions</name>
         <t>
-                The input to identity assertion is the JSON-encoded object
+                The input to the identity assertion generation process is the JSON-encoded object
                 described in <xref target="sec.jsep-binding" format="default"/> that contains the
                 set of certificate fingerprints the browser intends to use.
 
@@ -1695,7 +1727,9 @@ Suggested ("reqisters" has been fixed):
 Original:
  The input to identity assertion is the JSON-encoded object described
  in Section 7.4 that contains the set of certificate fingerprints the
- browser intends to use. -->
+ browser intends to use.
+
+ANSWER: Fixed. -->
 
                 This string is treated as opaque from the perspective of the
                 IdP.
@@ -1755,7 +1789,7 @@ Original:
                 <xref target="RFC4648" format="default">base64-encoded</xref>, and used as the
                 value of the "identity" attribute.
                 IdPs <bcp14>SHOULD</bcp14> ensure that any assertions they
-                generate cannot be interpreted in a different context. For example,
+                generate cannot be interpreted in a different context. E.g.,
                 they should use a distinct format or have separate cryptographic
                 keys for assertion generation and other purposes.
                 Line breaks are inserted solely for
@@ -1896,7 +1930,7 @@ Original:
     <section anchor="sec.sec-cons" numbered="true" toc="default">
       <name>Security Considerations</name>
       <t>
-          Much of the security analysis of this problem is contained in <xref target="RFC8826" format="default"/> or in the discussion of the
+          Much of the security analysis of RTCWEB is contained in <xref target="RFC8826" format="default"/> or in the discussion of the
           particular issues above.
 
 <!-- [rfced] Section 9:  What does "this problem" refer to here?
@@ -1904,7 +1938,10 @@ Original:
 Original:
  Much of the security analysis of this problem is contained in
  [I-D.ietf-rtcweb-security] or in the discussion of the particular
- issues above. -->
+ issues above.
+
+ANSWER: Fixed.
+ -->
 
  In order to avoid repetition, this section
           focuses on (a) residual threats that are not addressed by this
@@ -1926,8 +1963,13 @@ Section 7" be "the identity mechanism used in Section 7.1" or
 "the identity mechanisms used in Section 7"?  We ask because we see
 "identity service mechanisms in Section 7" in the next paragraph.
 
+
+ANSWER: Yes, section 7.
+
 Also, we changed "IF" to "If"; please let us know if the
-capitalization was intentional.  
+capitalization was intentional.
+
+ANSWER: It's a typo.
 
 Original:
  IF HTTPS is not used to secure communications to the signaling
@@ -1992,7 +2034,7 @@ Original:
         <t>
             However, these privacy protections come at a performance cost in
             terms of using TURN relays and, in the latter case, delaying
-            ICE. Sites <bcp14>SHOULD</bcp14> make users aware of these trade&nbhy;offs.
+            ICE. Sites <bcp14>SHOULD</bcp14> make users aware of these tradeoffs.
         </t>
         <t>
             Note that the protections provided here assume a non-malicious
@@ -2000,13 +2042,13 @@ Original:
             status and (absent the use of a technology like Tor) their IP
             address, they can violate the user's privacy at will.  Users who wish
             privacy against the calling sites they are using must use separate
-            privacy-enhancing technologies such as Tor. &nbsp;Combined WebRTC/Tor
+            privacy-enhancing technologies such as Tor. Combined WebRTC/Tor
             implementations <bcp14>SHOULD</bcp14> arrange to route the media as well as the
-            signaling through Tor. &nbsp;Currently this will produce very suboptimal
+            signaling through Tor. Currently this will produce very suboptimal
             performance.
         </t>
         <t>
-            Additionally, any identifier that persists across multiple calls is
+            Additionally, any identifier which persists across multiple calls is
             potentially a problem for privacy, especially for anonymous calling
             services. Such services <bcp14>SHOULD</bcp14> instruct the browser to use separate
             DTLS keys for each call and also to use TURN throughout the
@@ -2020,7 +2062,7 @@ Original:
         <name>Denial of Service</name>
         <t>
             The consent mechanisms described in this document are intended to
-            mitigate DoS attacks in which an attacker uses clients
+            mitigate denial-of-service (DoS) attacks in which an attacker uses clients
             to send large amounts of traffic to a victim without the consent of
             the victim. While these mechanisms are sufficient to protect victims
             who have not implemented WebRTC at all, WebRTC implementations need
@@ -2075,7 +2117,7 @@ Original:
             mechanism as long as major parts of the signaling messages are not
             signed. On the other hand, signing the entire message severely
             restricts the capabilities of the calling application, so there are
-            difficult trade&nbhy;offs here.
+            difficult tradeoffs here.
         </t>
       </section>
       <section numbered="true" toc="default">
@@ -2154,7 +2196,7 @@ Original:
               identities such as Facebook, can be recast as authoritative IdPs
               (e.g., 123456@facebook.com). However, in such cases, the user
               interface implications are not entirely desirable.  One
-              intermediate approach is to have a special (potentially user
+              intermediate approach is to have special (potentially user
               configurable) UI for large authoritative IdPs, thus allowing the
               user to instantly grasp that the call is being authenticated by
               Facebook, Google, etc.
@@ -2393,6 +2435,8 @@ Currently:
             Watson, M., "Web Cryptography API", W3C Recommendation,
             26 January 2017,
             <https://www.w3.org/TR/2017/REC-WebCryptoAPI-20170126/>.
+
+ANSWER: OK.
 -->
 
 
@@ -2421,7 +2465,7 @@ Currently:
 that this GitHub page says "Editor's draft" and also says
 "Latest published version: https://www.w3.org/TR/webrtc/."  We have updated
 this to refer to the "Latest published version".  Please let us know any
-objections.  
+objections.
 
 Original:
  [webrtc-api]
@@ -2437,6 +2481,8 @@ Currently:
      Real-time Communication Between Browsers", W3C Candidate
      Recommendation, 13 December 2019,
      <https://www.w3.org/TR/2019/CR-webrtc-20191213/>.
+
+ANSWER: OK
 -->
 
         <reference anchor="FIPS186">
@@ -2460,13 +2506,12 @@ Currently:
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6265.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6943.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6120.xml"/>
-        <reference anchor="XmlHttpRequest" target="https://www.w3.org/TR/XMLHttpRequest/">
-          <front>
-            <title>XMLHttpRequest Level 2</title>
+        <reference anchor="fetch" target=" https://fetch.spec.whatwg.org/">
+          <front>                                       
+            <title>Fetch</title>
             <author initials="A." surname="van Kesteren">
               <organization/>
             </author>
-            <date month="January" year="2012"/>
           </front>
         </reference>
 
@@ -2484,7 +2529,9 @@ Please advise.
 
 Original:
  [XmlHttpRequest]
-            van Kesteren, A., "XMLHttpRequest Level 2", January 2012. -->
+            van Kesteren, A., "XMLHttpRequest Level 2", January 2012. 
+ANSWER: Replaced by a cite to fetch
+-->
 
       </references>
     </references>
@@ -2513,23 +2560,29 @@ We chose to use the latter form.  Please let us know any objections.
 
  Cookies ("use Cookies") / cookies ("access cookies") (Section 7.7)
 
+ANSWER: OK.
+
 b) In the v2 XML file, <spanx style="verb"> was used to create single quotes
 for some keys, values, and attribute names.  Per RFC 7991, the xml2rfc v3
-vocab, <spanx> has been deprecated: 
+vocab, <spanx> has been deprecated:
 
    Deprecate <spanx>; replace it with <strong>, <em>, and <tt>.
 
 C238 uses single or double quotes when referring to SDP attributes. Note that
 we have replaced instances of <spanx> with double quotes.  Please let us know
-if any updates are needed. 
+if any updates are needed.
+
+ANSWER: OK.
 
 
-c) Please let us know how/if the following should be made consistent: 
+c) Please let us know how/if the following should be made consistent:
 
  interdomain ("interdomain calling") /
    inter-domain ("inter-domain protocol")
      (Usage post-RFC 6000 is mixed but leans heavily toward
      "inter-domain.")
+
+ANSWER: OK.
 
  Identity Providers ("overview of Identity Providers and the relevant
    terminology") / identity providers
@@ -2539,11 +2592,21 @@ c) Please let us know how/if the following should be made consistent:
      Identity Providers" to "overview of IdPs" in this document would
      resolve this issue.
 
+ANSWER: OK
+
  Relying Party (Section 4) / relying party (Section 7)
+
+ANSWER: OK.
+
 
  security characteristics / "security characteristics"
 
+ANSEER: I don't understand this.
+
+
  "https:" (The scheme, "https:") / "https" scheme (the "https" scheme)
+
+ANSWER: OK.
 -->
 
 </rfc>
