@@ -244,7 +244,7 @@ Original:
     <!- - Not layered ? - ->
 
     <section title="Overview" anchor="sec.proposal.overview">
-      <!- - TODO: Federated - -> 
+      <!- - TODO: Federated - ->
 
 ANSWER: Yes, or OBE.
 -->
@@ -438,7 +438,7 @@ RFC 8446, would you like to (1) cite and list RFC 8446 instead,
 
 Original:
  This message is sent to the signaling server, e.g., by XMLHttpRequest
- [XmlHttpRequest] or by WebSockets [RFC6455], over TLS [RFC5246]. 
+ [XmlHttpRequest] or by WebSockets [RFC6455], over TLS [RFC5246].
 
 ANSWER: Cite 8446.-->
 
@@ -570,7 +570,7 @@ Please let us know which section should be cited here.
 Original:
  As described in
  Section 5.3, these keepalives MUST be based on the consent freshness
- mechanism specified in [RFC7675]. 
+ mechanism specified in [RFC7675].
 
 ANSWER: Fixed.
 -->
@@ -874,44 +874,26 @@ Syntax:
               input when the indication is hidden.  (Note: This may not be
               necessary in systems that are non-windows-based but that have good
               notifications support, such as phones.)
-            </dd>
+          </dd>
         </dl>
-
-<!-- [rfced] Section 6.2:  Is the bullet list after this "UI
-Requirement:" list item supposed to be a "sub-list" (as was done,
-for example, after the "UI Requirements:" list item in Section 6.5),
-or should it remain as a separate list?
-
-Original:
- UI Requirement:  If the UI indication of camera/microphone use are
-    displayed in the browser such that minimizing the browser window
-    would hide the indication, or the JS creating an overlapping
-    window would hide the indication, then the browser SHOULD stop
-    camera and microphone input when the indication is hidden.  [Note:
-    this may not be necessary in systems that are non-windows-based
-    but that have good notifications support, such as phones.]
-
- o  Browsers MUST NOT permit permanent screen or application sharing
-    permissions to be installed as a response to a JS request for
-    permissions.  Instead, they must require some other user action
-    such as a permissions setting or an application install experience
-    to grant permission to a site.
-... -->
-
-        <ul spacing="normal">
-          <li>
+        <dl newline="false" spacing="normal">
+          <dt>UI Requirement:</dt>
+          <dd>
               Browsers <bcp14>MUST NOT</bcp14> permit permanent screen or application sharing
               permissions to be installed as a response to a JS request for
               permissions. Instead, they must require some other user action
               such as a permissions setting or an application install experience
               to grant permission to a site.
-            </li>
-          <li>
+          </dd>
+        </dl>
+        <dl newline="false" spacing="normal">
+          <dt>UI Requirement:</dt>
+          <dd>
               Browsers <bcp14>MUST</bcp14> provide a separate dialog request for
               screen/application sharing permissions even if the media request
               is made at the same time as the request for camera and microphone
               permissions.
-              
+
 <!-- [rfced] Section 6.2:  Please clarify the meaning of "as camera
 and microphone."
 
@@ -920,14 +902,19 @@ Original:
     application sharing permissions even if the media request is made
     at the same time as camera and microphone. -->
 
-            </li>
-          <li>
+          </dd>
+        </dl>
+        <dl newline="false" spacing="normal">
+          <dt>UI Requirement:</dt>
+          <dd>
               The browser <bcp14>MUST</bcp14> indicate any windows which are currently being
               shared in some unambiguous way. Windows which are not visible <bcp14>MUST
               NOT</bcp14> be shared even if the application is being shared.  If the
               screen is being shared, then that <bcp14>MUST</bcp14> be indicated.
-            </li>
-        </ul>
+            </dd>
+        </dl>
+
+        <ul spacing="normal">
         <t>
           Browsers <bcp14>MAY</bcp14> permit the formation of data channels without any direct
           user approval. Because sites can always tunnel data through the
@@ -1035,7 +1022,7 @@ Original:
 
 Currently:
  In general, the site will learn at
- least a user's server-reflexive address from any HTTP transaction. 
+ least a user's server-reflexive address from any HTTP transaction.
 
 ANSWER: OK.
 -->
@@ -1634,7 +1621,7 @@ Suggested ("reqisters" has been fixed):
 ...
  [RFC8615]  Nottingham, M., "Well-Known Uniform Resource Identifiers
             (URIs)", RFC 8615, DOI 10.17487/RFC8615, May 2019,
-            <https://www.rfc-editor.org/info/rfc8615>. 
+            <https://www.rfc-editor.org/info/rfc8615>.
 
 ANSWER: OK.
 -->
@@ -2507,7 +2494,7 @@ ANSWER: OK
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6943.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6120.xml"/>
         <reference anchor="fetch" target=" https://fetch.spec.whatwg.org/">
-          <front>                                       
+          <front>
             <title>Fetch</title>
             <author initials="A." surname="van Kesteren">
               <organization/>
@@ -2529,7 +2516,7 @@ Please advise.
 
 Original:
  [XmlHttpRequest]
-            van Kesteren, A., "XMLHttpRequest Level 2", January 2012. 
+            van Kesteren, A., "XMLHttpRequest Level 2", January 2012.
 ANSWER: Replaced by a cite to fetch
 -->
 
