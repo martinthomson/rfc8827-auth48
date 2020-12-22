@@ -611,8 +611,7 @@
              unchanged, then the sender <bcp14>MAY</bcp14> send the same "identity" attribute. In
              this case, the established identity <bcp14>MUST</bcp14> be applied to existing DTLS
              connections as well as new connections established using one of those
-             fingerprints. Note that <xref target="RFC8829" sectionFormat="comma" section="5.2.1"/> requires that each media section use the same set of
-             fingerprints for every media section.
+             fingerprints. Note that <xref target="RFC8829" sectionFormat="comma" section="5.2.1"/> requires that each media section use the same set of fingerprints.
              If a new "identity" attribute is received, then the receiver <bcp14>MUST</bcp14>
              apply that identity to all existing connections.
           </t>
@@ -868,6 +867,11 @@
           need to proxy the HTTP/HTTPS and modify the SDP and/or the JS, or
           there needs to be browser support to set the "TURN-only" policy
           regardless of the site's preferences.
+        </t>
+        <t>
+          Note: These requirements are intended to allow sites to conceal the
+          user's IP address from the peer. For guidance on concealing the
+          user's IP address from the calling site see [RFCED: Citation to RFC 8828]
         </t>
       </section>
       <section anchor="sec.proposal.comsec" numbered="true" toc="default">
@@ -1775,8 +1779,6 @@ a=sendrecv
             only responding to ICE Binding Requests for a limited number of
             remote ufrags (this is the reason for the requirement that the JS
             not be able to control the ufrag and password).
-        </t>
-        <t>
             <xref target="RFC8834" sectionFormat="comma" section="13"/> documents a number
             of potential RTCP-based DoS attacks and countermeasures.
         </t>
@@ -2119,7 +2121,7 @@ a=sendrecv
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8224.xml"/>
 
         <reference anchor="fetch" target=" https://fetch.spec.whatwg.org/">
-          <front>                                       
+          <front>
             <title>Fetch</title>
             <author initials="A." surname="van Kesteren">
               <organization/>
