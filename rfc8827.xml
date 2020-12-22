@@ -24,26 +24,9 @@
         <email>ekr@rtfm.com</email>
       </address>
     </author>
-    <date month="October" year="2020"/>
-
-<!-- [rfced] Please insert any keywords (beyond those that appear in the
-title) for use on https://www.rfc-editor.org/search -->
+    <date month="December" year="2020"/>
 
     <abstract>
-<!-- [rfced] In this cluster, we have been expanding WebRTC in the body of the
-document (but not the title) as Web Real-Time Communication.  Do you want to
-include this expansion somewhere, or is not needed with the current
-explanatory text?
-
-Original (first occurrence):
-   This document defines the security architecture for WebRTC, a
-   protocol suite intended for use with real-time applications that can
-   be deployed in browsers - "real time communication on the Web".
-
-ANSWER: I think that anyone reading this will be able to figure out the
-context if we do not expand it.
--->
-
       <t>
         This document defines the security architecture for WebRTC, a protocol
         suite intended for use with real-time applications that can be deployed
@@ -175,51 +158,15 @@ context if we do not expand it.
           trusted. For instance, just because we can verify that
           &lt;https://www.example.org/&gt; is owned by Dr. Evil does not mean that we can
           trust Dr. Evil to access our camera and microphone. However, it gives
-          the user an opportunity to determine whether he wishes to trust
-          Dr. Evil or not; after all, if he desires to contact Dr. Evil (perhaps
-          to arrange for ransom payment), it's safe to temporarily give him
+          the user an opportunity to determine whether they wish to trust
+          Dr. Evil or not; after all, if they desire to contact Dr. Evil (perhaps
+          to arrange for ransom payment), it's safe to temporarily give them
           access to the camera and microphone for the purpose of the call, but
-          he doesn't want Dr. Evil to be able to access his camera and
+          they don't want Dr. Evil to be able to access their camera and
           microphone other than during the call. The point here is that we must
           first identify other elements before we can determine whether and how
           much to trust them. Additionally, sometimes we need to identify the
           communicating peer before we know what policies to apply.
-
-<!-- [rfced] Sections 3.1 and subsequent:  Per the "Gender-Specific
-Language" section of <https://www.rfc-editor.org/styleguide/part2/>,
-please let us know if we may change these instances of "he," "him,"
-and "his" to "they," "them," and "their."
-
-Original:
- However, it
- gives the user an opportunity to determine whether he wishes to trust
- Dr. Evil or not; after all, if he desires to contact Dr. Evil
- (perhaps to arrange for ransom payment), it's safe to temporarily
- give him access to the camera and microphone for the purpose of the
- call, but he doesn't want Dr. Evil to be able to access his camera
- and microphone other than during the call.
-...
- The
- idea behind this type of permissions is that a user might have a
- fairly narrow list of peers he is willing to communicate with, e.g.,
- "my mother" rather than "anyone on Facebook".
-...
- Note that this
- does not mean that the IdP might not lie, but that is a
- trustworthiness judgement that the user can make at the time he looks
- at the identity.
-...
- Note that
- this requires user consent in many cases but because the data channel
- does not need consent, he can use that directly.
-...
- Fundamentally, the IdP proxy is just a piece of HTML and JS loaded by
- the browser, so nothing stops a Web attacker from creating their own
- IFRAME, loading the IdP proxy HTML/JS, and requesting a signature
- over his own keys rather than those generated in the browser.
-
-ANSWER: Yes, please. -->
-
         </t>
       </section>
       <section anchor="sec.proposal.unauthenticated" numbered="true" toc="default">
@@ -235,20 +182,6 @@ ANSWER: Yes, please. -->
     </section>
     <section anchor="sec.proposal.overview" numbered="true" toc="default">
       <name>Overview</name>
-
-<!-- [rfced] Section 4:  We found these comments in the original
-approved XML file.  Were these items resolved?
-
-Original:
-    </section>
-    <!- - Not layered ? - ->
-
-    <section title="Overview" anchor="sec.proposal.overview">
-      <!- - TODO: Federated - ->
-
-ANSWER: Yes, or OBE.
--->
-
       <t>
         This section describes a typical WebRTC session and shows how the
         various security elements interact and what guarantees are provided to
@@ -429,19 +362,7 @@ ANSWER: Yes, or OBE.
           This message is sent to the signaling server, e.g., by fetch()
           <xref target="fetch" format="default"/> or by WebSockets
 	  <xref target="RFC6455" format="default"/>, over TLS <xref
-	  target="RFC5246" format="default"/>.
-
-<!-- [rfced] Section 4.1:  Because RFC 5246 has been obsoleted by
-RFC 8446, would you like to (1) cite and list RFC 8446 instead,
-(2) list both documents, or (3) leave the obsolete citation in place
-(i.e., no changes)?
-
-Original:
- This message is sent to the signaling server, e.g., by XMLHttpRequest
- [XmlHttpRequest] or by WebSockets [RFC6455], over TLS [RFC5246].
-
-ANSWER: Cite 8446.-->
-
+	  target="RFC8446" format="default"/>.
           The signaling server processes the message from Alice's browser,
           determines that this is a call to Bob, and sends a signaling message to
           Bob's browser (again, the format is currently undefined).  The JS on
@@ -563,18 +484,6 @@ ANSWER: Cite 8446.-->
           implementations to periodically send keepalives using the
           consent freshness
           mechanism specified in <xref target="RFC7675" format="default"/>.
-
-<!-- [rfced] Section 4.4:  This document does not have a Section 5.3.
-Please let us know which section should be cited here.
-
-Original:
- As described in
- Section 5.3, these keepalives MUST be based on the consent freshness
- mechanism specified in [RFC7675].
-
-ANSWER: Fixed.
--->
-
   If a
           keepalive fails and no new ICE channels can be established, then the
           session is terminated.
@@ -613,25 +522,7 @@ ANSWER: Fixed.
         <dd>no</dd>
         <dt>Default Value:</dt>
         <dd>N/A</dd>
-        <dt>Name:</dt>
-        <dd>identity</dd>
       </dl>
-
-<!-- [rfced] Section 5:  Are both "Name:  identity" entries needed in
-this list?
-
-Original:
- Name:  identity
-
- Value:  identity-assertion
-
- Usage Level:  session
-
- Charset Dependent:  no
-
- Default Value:  N/A
-
- Name:  identity -->
 
 <t>Syntax:</t>
       <sourcecode name="abnf-1" type="abnf" ><![CDATA[
@@ -648,43 +539,6 @@ Original:
 ]]></sourcecode>
 
 <t>Example:</t>
-<!-- [rfced] Section 5: We have split the <artwork> into 2 pieces: the
-first has been tagged as <sourcecode type="abnf"> and the second as
-<sourcecode type="sdp" >. See
-<https://www.rfc-editor.org/materials/sourcecode-types.txt> for the preferred
-list of "type" attributes.  Please review and let us know if ay updates are
-needed.
-
-For the definitions of ALPHA and DIGIT, RFC 4566 refers to RFC 4234, which has
-been obsoleted by RFC 5234.  Should this document reference RFC 5234 for ALPHA
-and DIGIT?   Also, RFC 4566 will soon be obsoleted by RFC-to-be 8866
-<draft-ietf-mmusic-rfc4566bis-37>; should this document be updated to point to
-RFC 8866?
-
-Original:
-
-      <artwork type="inline"><![CDATA[
-Syntax:
-
-  identity-assertion        = identity-assertion-value
-                              *(SP identity-extension)
-  identity-assertion-value  = base64
-  identity-extension        = extension-name [ "=" extension-value ]
-  extension-name            = token
-  extension-value           = 1*(%x01-09 / %x0b-0c / %x0e-3a / %x3c-ff)
-                              ; byte-string from [RFC4566]
-
-  <ALPHA and DIGIT as defined in [RFC4566]>
-  <base64 as defined in [RFC4566]>
-
- Example:
-
-  a=identity:\
-    eyJpZHAiOnsiZG9tYWluIjoiZXhhbXBsZS5vcmciLCJwcm90b2NvbCI6ImJvZ3Vz\
-    In0sImFzc2VydGlvbiI6IntcImlkZW50aXR5XCI6XCJib2JAZXhhbXBsZS5vcmdc\
-    IixcImNvbnRlbnRzXCI6XCJhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3l6XCIsXCJz\
-    aWduYXR1cmVcIjpcIjAxMDIwMzA0MDUwNlwifSJ9
--->
 
 <sourcecode name="sdp-1" type="sdp" ><![CDATA[
  a=identity:\
@@ -840,7 +694,7 @@ Syntax:
           might.  Browsers servicing such requests <bcp14>SHOULD</bcp14> clearly indicate that
           identity to the user when asking for permission.  The idea behind this
           type of permissions is that a user might have a fairly narrow list of
-          peers he is willing to communicate with, e.g., "my mother" rather than
+          peers they are willing to communicate with, e.g., "my mother" rather than
           "anyone on Facebook". Narrow permissions grants allow the browser to
           do that enforcement.
         </t>
@@ -874,47 +728,30 @@ Syntax:
               input when the indication is hidden.  (Note: This may not be
               necessary in systems that are non-windows-based but that have good
               notifications support, such as phones.)
-          </dd>
+            </dd>
         </dl>
-        <dl newline="false" spacing="normal">
-          <dt>UI Requirement:</dt>
-          <dd>
+
+        <ul spacing="normal">
+          <li>
               Browsers <bcp14>MUST NOT</bcp14> permit permanent screen or application sharing
               permissions to be installed as a response to a JS request for
               permissions. Instead, they must require some other user action
               such as a permissions setting or an application install experience
               to grant permission to a site.
-          </dd>
-        </dl>
-        <dl newline="false" spacing="normal">
-          <dt>UI Requirement:</dt>
-          <dd>
+            </li>
+          <li>
               Browsers <bcp14>MUST</bcp14> provide a separate dialog request for
               screen/application sharing permissions even if the media request
               is made at the same time as the request for camera and microphone
               permissions.
-
-<!-- [rfced] Section 6.2:  Please clarify the meaning of "as camera
-and microphone."
-
-Original:
- o  Browsers MUST provide a separate dialog request for screen/
-    application sharing permissions even if the media request is made
-    at the same time as camera and microphone. -->
-
-          </dd>
-        </dl>
-        <dl newline="false" spacing="normal">
-          <dt>UI Requirement:</dt>
-          <dd>
+            </li>
+          <li>
               The browser <bcp14>MUST</bcp14> indicate any windows which are currently being
               shared in some unambiguous way. Windows which are not visible <bcp14>MUST
               NOT</bcp14> be shared even if the application is being shared.  If the
               screen is being shared, then that <bcp14>MUST</bcp14> be indicated.
-            </dd>
-        </dl>
-
-        <ul spacing="normal">
+            </li>
+        </ul>
         <t>
           Browsers <bcp14>MAY</bcp14> permit the formation of data channels without any direct
           user approval. Because sites can always tunnel data through the
@@ -961,39 +798,8 @@ Original:
           course knows it.
         </t>
         <t>
-          While continuing consent is required, the ICE <xref target="RFC8445" sectionFormat="comma" section="10"/> keepalives use STUN Binding Indications, which are
-          one-way and therefore not sufficient.
-
-<!-- [rfced] Section 6.3:  Please advise regarding the following:
-
-1. We do not see the word "keepalive" in Section 10 of RFC 8445, but
-we do see it in 8445's Section 11.  Please confirm that "Section 10"
-is correct here and will be clear to readers.
-
-ANSWER: It should be S 11.
-
-2. We found the use of "which" confusing here.  Are all STUN Binding
-Indications one-way and therefore not sufficient (in which case "STUN
-Binding Indications, which are" would be correct), or only some (in
-which case "STUN Binding Indications that are" would be correct)?
-
-ANSWER: it's non-restrictive. Added a comma.
-
-
-
-3. We found this comment, in the XML file, just prior to this
-sentence:  "FIXME: phrasing of first sentence still awkward."
-Please let us know how/if you want to fix the phrasing.
-
-Original:
- While continuing consent is required, the ICE [RFC8445]; Section 10
- keepalives use STUN Binding Indications which are one-way and
- therefore not sufficient.
-
-ANSWER: Just remove the FIXME.
- -->
-
-  The current WG consensus is to
+          While continuing consent is required, the ICE <xref target="RFC8445" sectionFormat="comma" section="11"/> keepalives use STUN Binding Indications, which are
+          one-way and therefore not sufficient.  The current WG consensus is to
           use ICE Binding Requests for continuing consent freshness. ICE already
           requires that implementations respond to such requests, so this
           approach is maximally compatible. A separate document will profile the
@@ -1010,24 +816,7 @@ ANSWER: Just remove the FIXME.
           mitigate this issue. Note that these requirements are not intended to
           protect the user's IP address from a malicious site. In general, the
           site will learn at least a user's server-reflexive address from any
-          HTTP transaction.
-
-<!-- [rfced] Section 6.4:  Per author feedback for RFC 8839 and per
-other documents in this cluster, we hyphenated the term "server
-reflexive".  Please let us know any objections.
-
-Original:
- In general, the site will learn at
- least a user's server reflexive address from any HTTP transaction.
-
-Currently:
- In general, the site will learn at
- least a user's server-reflexive address from any HTTP transaction.
-
-ANSWER: OK.
--->
-
-  Rather, these requirements are intended to allow a
+          HTTP transaction.  Rather, these requirements are intended to allow a
           site to cooperate with the user to hide the user's IP address from the
           other side of the call. Hiding the user's IP address from the server
           requires some sort of explicit privacy-preserving mechanism on the
@@ -1154,7 +943,7 @@ ANSWER: OK.
           <dt>UI Requirements:</dt>
           <dd>
               A user-oriented client <bcp14>MUST</bcp14> provide an "inspector" interface which
-              allows the user to determine the security characteristics of the
+              allows the user to determine the "security characteristics" of the
               media.
             </dd>
           <dt/>
@@ -1167,12 +956,12 @@ ANSWER: OK.
             <ul spacing="normal">
               <li>
                   A client <bcp14>MUST</bcp14> provide a user interface through which a user
-                  may determine the security characteristics for
+                  may determine the "security characteristics" for
                   currently displayed audio and video stream(s).
                 </li>
               <li>
                   A client <bcp14>MUST</bcp14> provide a user interface through which a user
-                  may determine the security characteristics for transmissions
+                  may determine the "security characteristics" for transmissions
                   of their microphone audio and camera video.
                 </li>
               <li>
@@ -1299,35 +1088,10 @@ ANSWER: OK.
                 operator of "example.com" has complete control of the namespace
                 ending in "@example.com". Thus, "alice@example.com" is whoever
                 the operator says it is. Examples of systems with authoritative
-                identity providers include DNSSEC, RFC 4474, and Facebook
+                identity providers include DNSSEC, an identity system for SIP
+		(see <xref target="RFC8224"/>), and Facebook
                 Connect (Facebook identities only make sense within the context
                 of the Facebook system).
-
-<!-- [rfced] Section 7.1:  May we cite RFC 8224 (which obsoletes
-RFC 4474) here instead (with brackets, so that a hyperlink will be
-available for the reader) and list it under Informative References?
-
-Original:
- Examples of systems with authoritative
- identity providers include DNSSEC, RFC 4474, and Facebook Connect
- (Facebook identities only make sense within the context of the
- Facebook system).
-
-Possibly:
- Examples of systems with authoritative
- identity providers include DNSSEC, an identity system for SIP
- (see [RFC8224]), and Facebook Connect (Facebook identities only make
- sense within the context of the Facebook system).
-...
-
- [RFC8224]  Peterson, J., Jennings, C., Rescorla, E., and C. Wendt,
-            "Authenticated Identity Management in the Session
-            Initiation Protocol (SIP)", RFC 8224, DOI 10.17487/RFC8224,
-            February 2018, <https://www.rfc-editor.org/info/rfc8224>.
-
-ANSWER: OK
- -->
-
               </dd>
           <dt>Third-Party:</dt>
           <dd>
@@ -1350,8 +1114,8 @@ ANSWER: OK
             in this document), and any assertion it makes about an identity for
             which it is authoritative is directly verifiable. Note that this
             does not mean that the IdP might not lie, but that is a
-            trustworthiness judgement that the user can make at the time he
-            looks at the identity.
+            trustworthiness judgement that the user can make at the time they
+            look at the identity.
         </t>
         <t>
             By contrast, if an AP is authenticating via a third-party IdP, the
@@ -1482,9 +1246,6 @@ ANSWER: OK
             as a JavaScript object (also known as a dictionary or hash) with a
             single "fingerprint" key, as shown below:
         </t>
-<!-- [rfced] Please review the type attribute set for each <sourcecode> and let
-us know if any updates are needed.
--->
         <sourcecode name="json-1" type="json"><![CDATA[
 {
   "fingerprint":
@@ -1590,42 +1351,8 @@ a=sendrecv
         </dl>
         <t>
                 Each IdP <bcp14>MUST</bcp14> serve its initial entry page (i.e., the one loaded
-                by the IdP proxy) from a <xref target="RFC5785" format="default">well-known
+                by the IdP proxy) from a <xref target="RFC8615" format="default">well-known
                 URI</xref>.
-
-<!-- [rfced] Section 7.5:  RFC 5785 has been obsoleted by RFC 8615.
-May we change both citations as well as the reference listing for
-RFC 5785?
-
-(It looks like <https://www.iana.org/assignments/well-known-uris/>
-and <https://www.iana.org/assignments/uri-schemes/> might be related
-to this text, and we see that both have been updated to refer to
-RFC 8615.)
-
-Original:
- Each IdP MUST serve its initial entry page (i.e., the one loaded by
- the IdP proxy) from a well-known URI [RFC5785].
-...
-This section reqisters the "idp-proxy" well-known URI from [RFC5785].
-...
- [RFC5785]  Nottingham, M. and E. Hammer-Lahav, "Defining Well-Known
-            Uniform Resource Identifiers (URIs)", RFC 5785,
-            DOI 10.17487/RFC5785, April 2010,
-            <https://www.rfc-editor.org/info/rfc5785>.
-
-Suggested ("reqisters" has been fixed):
- Each IdP MUST serve its initial entry page (i.e., the one loaded by
- the IdP proxy) from a well-known URI [RFC8615].
-...
- This section registers the "idp-proxy" well-known URI from [RFC8615].
-...
- [RFC8615]  Nottingham, M., "Well-Known Uniform Resource Identifiers
-            (URIs)", RFC 8615, DOI 10.17487/RFC8615, May 2019,
-            <https://www.rfc-editor.org/info/rfc8615>.
-
-ANSWER: OK.
--->
-
   The well-known URI for an IdP proxy is formed from
                 the following URI components:
         </t>
@@ -1706,18 +1433,6 @@ ANSWER: OK.
                 The input to the identity assertion generation process is the JSON-encoded object
                 described in <xref target="sec.jsep-binding" format="default"/> that contains the
                 set of certificate fingerprints the browser intends to use.
-
-<!-- [rfced] Section 7.6:  Should "input to identity assertion" be
-"input to the IdP assertion process" (per Section 7) or possibly
-"input to the assertion generation process" (per Section 8)?
-
-Original:
- The input to identity assertion is the JSON-encoded object described
- in Section 7.4 that contains the set of certificate fingerprints the
- browser intends to use.
-
-ANSWER: Fixed. -->
-
                 This string is treated as opaque from the perspective of the
                 IdP.
         </t>
@@ -1918,19 +1633,7 @@ ANSWER: Fixed. -->
       <name>Security Considerations</name>
       <t>
           Much of the security analysis of RTCWEB is contained in <xref target="RFC8826" format="default"/> or in the discussion of the
-          particular issues above.
-
-<!-- [rfced] Section 9:  What does "this problem" refer to here?
-
-Original:
- Much of the security analysis of this problem is contained in
- [I-D.ietf-rtcweb-security] or in the discussion of the particular
- issues above.
-
-ANSWER: Fixed.
- -->
-
- In order to avoid repetition, this section
+          particular issues above. In order to avoid repetition, this section
           focuses on (a) residual threats that are not addressed by this
           document and (b) threats produced by failure/misbehavior of one of the
           components in the system.
@@ -1944,27 +1647,6 @@ ANSWER: Fixed.
             then any on-path attacker can replace the DTLS-SRTP fingerprints
             in the handshake and thus substitute its own identity for that
             of either endpoint.
-
-<!-- [rfced] Section 9.1:  Should "the identity mechanism used in
-Section 7" be "the identity mechanism used in Section 7.1" or
-"the identity mechanisms used in Section 7"?  We ask because we see
-"identity service mechanisms in Section 7" in the next paragraph.
-
-
-ANSWER: Yes, section 7.
-
-Also, we changed "IF" to "If"; please let us know if the
-capitalization was intentional.
-
-ANSWER: It's a typo.
-
-Original:
- IF HTTPS is not used to secure communications to the signaling
- server, and the identity mechanism used in Section 7 is not used,
- then any on-path attacker can replace the DTLS-SRTP fingerprints in
- the handshake and thus substitute its own identity for that of either
- endpoint. -->
-
         </t>
         <t>
             Even if HTTPS is used, the signaling server can
@@ -2060,7 +1742,7 @@ Original:
             WebRTC. An attacker proxies the call center's front-end and arranges
             for multiple clients to initiate calls to the call center. Note that
             this requires user consent in many cases, but because the data
-            channel does not need consent, he can use that directly. Since ICE
+            channel does not need consent, they can use that directly. Since ICE
             will complete, browsers can then be induced to send large amounts of
             data to the victim call center if it supports the data channel at
             all. Preventing this attack requires that automated WebRTC
@@ -2124,7 +1806,7 @@ Original:
               Fundamentally, the IdP proxy is just a piece of HTML and JS loaded
               by the browser, so nothing stops a Web attacker from creating
               their own IFRAME, loading the IdP proxy HTML/JS, and requesting a
-              signature over his own keys rather than those generated in
+              signature over their own keys rather than those generated in
               the browser. However, that proxy would be in the
               attacker's origin, not the IdP's origin. Only the
               browser itself can instantiate a context that (a)&nbsp;is in the IdP's origin and
@@ -2266,7 +1948,7 @@ Original:
       </dl>
       <t>
           This section registers the "idp-proxy" well-known
-          URI from <xref target="RFC5785" format="default"/>.
+          URI from <xref target="RFC8615" format="default"/>.
       </t>
       <dl newline="false" spacing="normal">
         <dt>URI suffix:</dt>
@@ -2289,10 +1971,8 @@ Original:
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4566.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4568.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"/>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5246.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5763.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5764.xml"/>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5785.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5890.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6347.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6454.xml"/>
@@ -2304,7 +1984,8 @@ Original:
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8259.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8261.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8445.xml"/>
-
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8446.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8615.xml"/>
 
 <!-- draft-ietf-rtcweb-overview: RFC 8825 -->
 <reference anchor="RFC8825" target="https://www.rfc-editor.org/info/rfc8825">
@@ -2313,26 +1994,24 @@ Original:
     <author initials="H." surname="Alvestrand" fullname="Harald T. Alvestrand">
       <organization />
     </author>
-    <date month="October" year="2020" />
+    <date month="December" year="2020" />
   </front>
   <seriesInfo name="RFC" value="8825" />
   <seriesInfo name="DOI" value="10.17487/RFC8825"/>
 </reference>
 
-
- <!--draft-ietf-rtcweb-security: RFC 8826 -->
+<!--draft-ietf-rtcweb-security: RFC 8826 -->
  <reference anchor="RFC8826" target="https://www.rfc-editor.org/info/rfc8826">
  <front>
  <title>Security Considerations for WebRTC</title>
  <author initials='E.' surname='Rescorla' fullname='Eric Rescorla'>
    <organization/>
  </author>
- <date month='October' year='2020'/>
+ <date month='December' year='2020'/>
  </front>
  <seriesInfo name="RFC" value="8826"/>
  <seriesInfo name="DOI" value="10.17487/RFC8826"/>
  </reference>
-
 
 <!-- draft-ietf-rtcweb-rtp-usage; RFC 8834 -->
 <reference anchor="RFC8834" target="https://www.rfc-editor.org/info/rfc8834">
@@ -2347,32 +2026,26 @@ Original:
     <author initials="J." surname="Ott" fullname="Jörg Ott">
       <organization />
     </author>
-    <date month="October" year="2020" />
+    <date month="December" year="2020" />
   </front>
   <seriesInfo name="RFC" value="8834" />
   <seriesInfo name="DOI" value="10.17487/RFC8834"/>
 </reference>
 
-
 <!-- draft-ietf-mmusic-sdp-uks; RFC 8844 -->
 <reference anchor='RFC8844' target="https://www.rfc-editor.org/info/rfc8844">
 <front>
-<title>Unknown Key Share Attacks on uses of TLS with the Session Description Protocol (SDP)</title>
-
+<title>Unknown Key-Share Attacks on Uses of TLS with the Session Description Protocol (SDP)</title>
 <author initials='M' surname='Thomson' fullname='Martin Thomson'>
     <organization />
 </author>
-
 <author initials='E' surname='Rescorla' fullname='Eric Rescorla'>
     <organization />
 </author>
-
-<date month="October" year="2020"/>
-
+<date month="December" year="2020"/>
 </front>
-<seriesInfo name="RFC" value="8859"/>
-<seriesInfo name="DOI" value="10.17487/RFC8859"/>
-
+<seriesInfo name="RFC" value="8844"/>
+<seriesInfo name="DOI" value="10.17487/RFC8844"/>
 </reference>
 
 <!-- draft-ietf-rtcweb-jsep; RFC 8829 -->
@@ -2389,7 +2062,7 @@ Original:
          role="editor">
  <organization/>
  </author>
- <date month='October' year='2020'/>
+ <date month='December' year='2020'/>
  </front>
  <seriesInfo name="RFC" value="8829"/>
  <seriesInfo name="DOI" value="10.17487/RFC8829"/>
@@ -2405,72 +2078,22 @@ Original:
             <refcontent>W3C Recommendation</refcontent>
         </reference>
 
-
-<!-- [rfced] Normative References:  Because the citation for
-[webcrypto] is used generally in text, we updated this listing per
-<https://www.w3.org/TR/WebCryptoAPI/>.  Please let us know any
-objections.
-
-Original:
- [webcrypto]
-            editors, W., "Web Cryptography API", June 2013.
-
-            Available at http://www.w3.org/TR/WebCryptoAPI/
-
-Currently:
- [webcrypto]
-            Watson, M., "Web Cryptography API", W3C Recommendation,
-            26 January 2017,
-            <https://www.w3.org/TR/2017/REC-WebCryptoAPI-20170126/>.
-
-ANSWER: OK.
--->
-
-
-        <reference anchor="webrtc-api" target="https://www.w3.org/TR/2019/CR-webrtc-20191213/">
-          <front>
-            <title>WebRTC 1.0: Real-time Communication Between Browsers</title>
-            <author initials="C." surname="Jennings" fullname="Cullen Jennings">
-              <organization/>
-            </author>
-            <author initials="H." surname="Boström" fullname="Henrik Boström">
-              <organization/>
-            </author>
-            <author initials="J-I." surname="Bruaroey" fullname="Jan-Ivar Bruaroey">
-              <organization/>
-            </author>
-            <date year="2019" month="December" day="13"/>
-          </front>
-            <refcontent>W3C Candidate Recommendation</refcontent>
-        </reference>
-
-
-<!-- [rfced] Normative References:  The URL as provided for
-[webrtc-api] in the original document -
-<http://dev.w3.org/2011/webrtc/editor/webrtc.html> - steers to
-<http://w3c.github.io/webrtc-pc/>, dated October 2019.  Please note
-that this GitHub page says "Editor's draft" and also says
-"Latest published version: https://www.w3.org/TR/webrtc/."  We have updated
-this to refer to the "Latest published version".  Please let us know any
-objections.
-
-Original:
- [webrtc-api]
-            editors, W., "WebRTC 1.0: Real-time Communication Between
-            Browsers", October 2011.
-
-            Available at http://dev.w3.org/2011/webrtc/editor/
-            webrtc.html
-
-Currently:
- [webrtc-api]
-     Jennings, C., Boström, H., and J-I. Bruaroey, "WebRTC 1.0:
-     Real-time Communication Between Browsers", W3C Candidate
-     Recommendation, 13 December 2019,
-     <https://www.w3.org/TR/2019/CR-webrtc-20191213/>.
-
-ANSWER: OK
--->
+   <reference anchor="webrtc-api" target="https://www.w3.org/TR/webrtc/">
+     <front>
+       <title>WebRTC 1.0: Real-time Communication Between Browsers</title>
+       <author initials="C." surname="Jennings" fullname="Cullen Jennings">
+         <organization/>
+       </author>
+       <author initials="H." surname="Boström" fullname="Henrik Boström">
+         <organization/>
+       </author>
+       <author initials="J-I." surname="Bruaroey" fullname="Jan-Ivar Bruaroey">
+         <organization/>
+       </author>
+       <date/>
+     </front>
+       <refcontent>W3C Candidate Recommendation</refcontent>
+   </reference>
 
         <reference anchor="FIPS186">
           <front>
@@ -2493,33 +2116,16 @@ ANSWER: OK
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6265.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6943.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6120.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8224.xml"/>
+
         <reference anchor="fetch" target=" https://fetch.spec.whatwg.org/">
-          <front>
+          <front>                                       
             <title>Fetch</title>
             <author initials="A." surname="van Kesteren">
               <organization/>
             </author>
           </front>
         </reference>
-
-<!-- [rfced] Informative References:  The URL as provided for
-[XmlHttpRequest] in the original document -
-<http://www.w3.org/TR/XMLHttpRequest/> - steers to a page with the
-title "XMLHttpRequest Level 1," dated October 2016.  When we did a
-Google search for "XMLHttpRequest Level 2," we found
-<https://www.w3.org/TR/2012/WD-XMLHttpRequest-20120117/>, which is
-partially obscured by a red box that says "This version is
-outdated!"  The link in the box in turn steers to the October 2016
-"XMLHttpRequest Level 1" page.
-
-Please advise.
-
-Original:
- [XmlHttpRequest]
-            van Kesteren, A., "XMLHttpRequest Level 2", January 2012.
-ANSWER: Replaced by a cite to fetch
--->
-
       </references>
     </references>
 
@@ -2539,30 +2145,8 @@ ANSWER: Replaced by a cite to fetch
     </section>
   </back>
 
-<!-- [rfced] Please let us know if any changes are needed for the
-following:
-
-a) The following term was used inconsistently in this document.
-We chose to use the latter form.  Please let us know any objections.
-
- Cookies ("use Cookies") / cookies ("access cookies") (Section 7.7)
-
-ANSWER: OK.
-
-b) In the v2 XML file, <spanx style="verb"> was used to create single quotes
-for some keys, values, and attribute names.  Per RFC 7991, the xml2rfc v3
-vocab, <spanx> has been deprecated:
-
-   Deprecate <spanx>; replace it with <strong>, <em>, and <tt>.
-
-C238 uses single or double quotes when referring to SDP attributes. Note that
-we have replaced instances of <spanx> with double quotes.  Please let us know
-if any updates are needed.
-
-ANSWER: OK.
-
-
-c) Please let us know how/if the following should be made consistent:
+<!-- [rfced] Please let us know how/if the following should be
+made consistent:
 
  interdomain ("interdomain calling") /
    inter-domain ("inter-domain protocol")
@@ -2584,12 +2168,6 @@ ANSWER: OK
  Relying Party (Section 4) / relying party (Section 7)
 
 ANSWER: OK.
-
-
- security characteristics / "security characteristics"
-
-ANSEER: I don't understand this.
-
 
  "https:" (The scheme, "https:") / "https" scheme (the "https" scheme)
 
