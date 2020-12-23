@@ -1044,6 +1044,11 @@
           some identity protocols in order to provide superior performance or UI
           properties.
       </t>
+      <t>
+        As of the time of publication, though other parts of this document are
+        widely deployed, peer authentication and media isolation have only limited
+        implementation and deployment.
+      </t>
       <section anchor="sec.trust-relationships" numbered="true" toc="default">
         <name>Trust Relationships: IdPs, APs, and RPs</name>
         <t>
